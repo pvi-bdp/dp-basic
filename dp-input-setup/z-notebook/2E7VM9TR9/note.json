@@ -1,0 +1,471 @@
+{
+  "paragraphs": [
+    {
+      "text": "%spark.conf\n\nspark.jars.packages org.apache.spark:spark-avro_2.11:2.4.0,com.springml:spark-sftp_2.11:1.1.4\n",
+      "user": "anonymous",
+      "dateUpdated": "2021-02-22 19:59:05.462",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/text",
+        "editorHide": false,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1555371018931_-1527020748",
+      "id": "20190415-233018_975000191",
+      "dateCreated": "2019-04-15 23:30:18.931",
+      "dateStarted": "2021-02-22 19:59:05.506",
+      "dateFinished": "2021-02-22 19:59:05.525",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%spark\n\nval df \u003d spark.read.\n            format(\"com.springml.spark.sftp\").\n            option(\"host\", \"sftp\").\n            option(\"username\", \"foo\").\n            option(\"password\", \"pass\").\n            option(\"fileType\", \"csv\").\n            option(\"delimiter\", \",\").\n            option(\"inferSchema\", \"true\").\n            option(\"tempLocation\", \"/tmp/\").\n            load(\"/data/test.csv\")\n            \ndf.printSchema\ndf.show\n",
+      "user": "anonymous",
+      "dateUpdated": "2021-02-22 20:00:45.478",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "com.jcraft.jsch.JSchException: java.net.UnknownHostException: sftp\n  at com.jcraft.jsch.Util.createSocket(Util.java:349)\n  at com.jcraft.jsch.Session.connect(Session.java:215)\n  at com.jcraft.jsch.Session.connect(Session.java:183)\n  at com.springml.sftp.client.SFTPClient.createSFTPChannel(SFTPClient.java:275)\n  at com.springml.sftp.client.SFTPClient.copy(SFTPClient.java:73)\n  at com.springml.spark.sftp.DefaultSource.copy(DefaultSource.scala:218)\n  at com.springml.spark.sftp.DefaultSource.createRelation(DefaultSource.scala:83)\n  at com.springml.spark.sftp.DefaultSource.createRelation(DefaultSource.scala:41)\n  at org.apache.spark.sql.execution.datasources.DataSource.resolveRelation(DataSource.scala:318)\n  at org.apache.spark.sql.DataFrameReader.loadV1Source(DataFrameReader.scala:223)\n  at org.apache.spark.sql.DataFrameReader.load(DataFrameReader.scala:211)\n  at org.apache.spark.sql.DataFrameReader.load(DataFrameReader.scala:178)\n  ... 47 elided\nCaused by: java.net.UnknownHostException: sftp\n  at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:184)\n  at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)\n  at java.net.Socket.connect(Socket.java:589)\n  at java.net.Socket.connect(Socket.java:538)\n  at java.net.Socket.\u003cinit\u003e(Socket.java:434)\n  at java.net.Socket.\u003cinit\u003e(Socket.java:211)\n  at com.jcraft.jsch.Util.createSocket(Util.java:343)\n  ... 58 more\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1555440257765_1732099366",
+      "id": "20190416-184417_439650151",
+      "dateCreated": "2019-04-16 18:44:17.765",
+      "dateStarted": "2021-02-22 20:00:45.519",
+      "dateFinished": "2021-02-22 20:00:45.778",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%spark\n\nval df \u003d spark.read.\n            format(\"com.springml.spark.sftp\").\n            option(\"host\", \"sftp\").\n            option(\"username\", \"foo\").\n            option(\"password\", \"pass\").\n            option(\"fileType\", \"csv\").\n            option(\"delimiter\", \",\").\n            option(\"inferSchema\", \"true\").\n            option(\"tempLocation\", \"/tmp/\").\n            option(\"header\", \"true\").\n            load(\"/data/test.csv\")\n            \n            \nsql(\"SET spark.sql.hive.convertMetastoreOrc\u003dtrue\")\nsql(\"SET spark.sql.orc.enabled\u003dtrue\")\n\n\ndf.write.format(\"orc\").mode(\"overwrite\").save(\"/cms_bene_stats_diabetes\")\n\n\n",
+      "user": "anonymous",
+      "dateUpdated": "2021-02-22 20:00:58.965",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "com.jcraft.jsch.JSchException: java.net.UnknownHostException: sftp\n  at com.jcraft.jsch.Util.createSocket(Util.java:349)\n  at com.jcraft.jsch.Session.connect(Session.java:215)\n  at com.jcraft.jsch.Session.connect(Session.java:183)\n  at com.springml.sftp.client.SFTPClient.createSFTPChannel(SFTPClient.java:275)\n  at com.springml.sftp.client.SFTPClient.copy(SFTPClient.java:73)\n  at com.springml.spark.sftp.DefaultSource.copy(DefaultSource.scala:218)\n  at com.springml.spark.sftp.DefaultSource.createRelation(DefaultSource.scala:83)\n  at com.springml.spark.sftp.DefaultSource.createRelation(DefaultSource.scala:41)\n  at org.apache.spark.sql.execution.datasources.DataSource.resolveRelation(DataSource.scala:318)\n  at org.apache.spark.sql.DataFrameReader.loadV1Source(DataFrameReader.scala:223)\n  at org.apache.spark.sql.DataFrameReader.load(DataFrameReader.scala:211)\n  at org.apache.spark.sql.DataFrameReader.load(DataFrameReader.scala:178)\n  ... 47 elided\nCaused by: java.net.UnknownHostException: sftp\n  at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:184)\n  at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)\n  at java.net.Socket.connect(Socket.java:589)\n  at java.net.Socket.connect(Socket.java:538)\n  at java.net.Socket.\u003cinit\u003e(Socket.java:434)\n  at java.net.Socket.\u003cinit\u003e(Socket.java:211)\n  at com.jcraft.jsch.Util.createSocket(Util.java:343)\n  ... 58 more\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1555440699212_-2031410627",
+      "id": "20190416-185139_2145631940",
+      "dateCreated": "2019-04-16 18:51:39.213",
+      "dateStarted": "2021-02-22 20:00:58.999",
+      "dateFinished": "2021-02-22 20:00:59.289",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%spark\n\nsql(\"SET spark.sql.hive.convertMetastoreOrc\u003dtrue\")\n\nval df \u003d spark.read.format(\"orc\").load(\"/cms_bene_stats_diabetes\")\ndf.printSchema\ndf.show(2)\n",
+      "user": "anonymous",
+      "dateUpdated": "2021-02-22 20:01:07.391",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala",
+        "tableHide": false,
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "org.apache.spark.sql.AnalysisException: Path does not exist: hdfs://namenode:8020/cms_bene_stats_diabetes;\n  at org.apache.spark.sql.execution.datasources.DataSource$$anonfun$org$apache$spark$sql$execution$datasources$DataSource$$checkAndGlobPathIfNecessary$1.apply(DataSource.scala:558)\n  at org.apache.spark.sql.execution.datasources.DataSource$$anonfun$org$apache$spark$sql$execution$datasources$DataSource$$checkAndGlobPathIfNecessary$1.apply(DataSource.scala:545)\n  at scala.collection.TraversableLike$$anonfun$flatMap$1.apply(TraversableLike.scala:241)\n  at scala.collection.TraversableLike$$anonfun$flatMap$1.apply(TraversableLike.scala:241)\n  at scala.collection.immutable.List.foreach(List.scala:392)\n  at scala.collection.TraversableLike$class.flatMap(TraversableLike.scala:241)\n  at scala.collection.immutable.List.flatMap(List.scala:355)\n  at org.apache.spark.sql.execution.datasources.DataSource.org$apache$spark$sql$execution$datasources$DataSource$$checkAndGlobPathIfNecessary(DataSource.scala:545)\n  at org.apache.spark.sql.execution.datasources.DataSource.resolveRelation(DataSource.scala:359)\n  at org.apache.spark.sql.DataFrameReader.loadV1Source(DataFrameReader.scala:223)\n  at org.apache.spark.sql.DataFrameReader.load(DataFrameReader.scala:211)\n  at org.apache.spark.sql.DataFrameReader.load(DataFrameReader.scala:178)\n  ... 47 elided\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1556036695771_-1805881955",
+      "id": "20190423-162455_1959159929",
+      "dateCreated": "2019-04-23 16:24:55.771",
+      "dateStarted": "2021-02-22 20:01:07.427",
+      "dateFinished": "2021-02-22 20:01:08.149",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%spark\n\nsql(\"SET spark.sql.hive.convertMetastoreOrc\u003dtrue\")\nsql(\"SET spark.sql.orc.enabled\u003dtrue\")\n\nval df \u003d spark.read.format(\"orc\").load(\"/cms_bene_stats_diabetes\")\n\ndf.write.format(\"com.springml.spark.sftp\").\n            option(\"host\", \"sftp\").\n            option(\"username\", \"foo\").\n            option(\"password\", \"pass\").\n            option(\"fileType\", \"csv\").\n            option(\"delimiter\", \",\").\n            option(\"tempLocation\", \"/tmp/\").\n            option(\"header\", \"true\").\n            save(\"/data/cms_bene_stats_diabetes1.csv\")",
+      "user": "anonymous",
+      "dateUpdated": "2020-06-16 23:19:08.580",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala",
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "df: org.apache.spark.sql.DataFrame \u003d [bene_id: int, gender_cd: int ... 7 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1556034898728_2049917181",
+      "id": "20190423-155458_1973057919",
+      "dateCreated": "2019-04-23 15:54:58.733",
+      "dateStarted": "2020-06-16 23:19:08.625",
+      "dateFinished": "2020-06-16 23:19:11.720",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "val df \u003d spark.read.\n            format(\"com.springml.spark.sftp\").\n            option(\"host\", \"sftp\").\n            option(\"username\", \"foo\").\n            option(\"password\", \"pass\").\n            option(\"fileType\", \"csv\").\n            option(\"delimiter\", \",\").\n            option(\"inferSchema\", \"true\").\n            option(\"tempLocation\", \"/tmp/\").\n            load(\"/data/diabetes.csv\")\n            \nsql(\"SET spark.sql.hive.convertMetastoreOrc\u003dtrue\")\nsql(\"SET spark.sql.orc.enabled\u003dtrue\")\n\ndf.write.format(\"orc\").mode(\"overwrite\").save(\"/diabetes\")\n\ndf.printSchema\ndf.show(10)\n",
+      "user": "anonymous",
+      "dateUpdated": "2019-04-23 16:29:21.429",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "root\n |-- claim_no: double (nullable \u003d true)\n |-- bene_id: integer (nullable \u003d true)\n |-- clm_date: integer (nullable \u003d true)\n |-- dob_dt: string (nullable \u003d true)\n |-- gndr_cd: integer (nullable \u003d true)\n |-- bene_race_cd: integer (nullable \u003d true)\n |-- bene_cnty_cd: integer (nullable \u003d true)\n |-- bene_state_cd: integer (nullable \u003d true)\n |-- nch_clm_type_cd: integer (nullable \u003d true)\n |-- clm_fac_type_cd: integer (nullable \u003d true)\n |-- clm_srvc_clsfctn_type_cd: integer (nullable \u003d true)\n |-- ptnt_dschrg_stus_cd: integer (nullable \u003d true)\n |-- clm_tot_chrg_amt: double (nullable \u003d true)\n |-- clm_pmt_amt: double (nullable \u003d true)\n |-- prncpal_dgns_cd: string (nullable \u003d true)\n |-- icd_dgns_cd1: string (nullable \u003d true)\n |-- icd_dgns_cd2: string (nullable \u003d true)\n |-- icd_dgns_cd3: string (nullable \u003d true)\n |-- icd_dgns_cd4: string (nullable \u003d true)\n |-- icd_dgns_cd5: string (nullable \u003d true)\n |-- icd_dgns_cd6: string (nullable \u003d true)\n |-- icd_dgns_cd7: string (nullable \u003d true)\n |-- icd_dgns_cd8: string (nullable \u003d true)\n |-- icd_dgns_cd9: string (nullable \u003d true)\n |-- icd_dgns_cd10: string (nullable \u003d true)\n |-- icd_dgns_cd11: string (nullable \u003d true)\n |-- icd_dgns_cd12: string (nullable \u003d true)\n |-- icd_dgns_cd13: string (nullable \u003d true)\n |-- icd_dgns_cd14: string (nullable \u003d true)\n |-- icd_dgns_cd15: string (nullable \u003d true)\n |-- icd_dgns_cd16: string (nullable \u003d true)\n |-- icd_dgns_cd17: string (nullable \u003d true)\n |-- icd_dgns_cd18: string (nullable \u003d true)\n |-- icd_dgns_cd19: string (nullable \u003d true)\n |-- icd_dgns_cd20: string (nullable \u003d true)\n |-- icd_dgns_cd21: string (nullable \u003d true)\n |-- icd_dgns_cd22: string (nullable \u003d true)\n |-- icd_dgns_cd23: string (nullable \u003d true)\n |-- icd_dgns_cd24: string (nullable \u003d true)\n |-- icd_dgns_cd25: string (nullable \u003d true)\n |-- rsn_visit_cd1: string (nullable \u003d true)\n |-- rsn_visit_cd2: string (nullable \u003d true)\n |-- rsn_visit_cd3: string (nullable \u003d true)\n |-- clm_admsn_dt: string (nullable \u003d true)\n |-- nch_bene_dschrg_dt: string (nullable \u003d true)\n |-- svc_type: string (nullable \u003d true)\n\n+------------+---------+--------+----------+-------+------------+------------+-------------+---------------+---------------+------------------------+-------------------+----------------+-----------+---------------+------------+------------+------------+------------+------------+------------+------------+------------+------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+------------+------------------+----------+\n|    claim_no|  bene_id|clm_date|    dob_dt|gndr_cd|bene_race_cd|bene_cnty_cd|bene_state_cd|nch_clm_type_cd|clm_fac_type_cd|clm_srvc_clsfctn_type_cd|ptnt_dschrg_stus_cd|clm_tot_chrg_amt|clm_pmt_amt|prncpal_dgns_cd|icd_dgns_cd1|icd_dgns_cd2|icd_dgns_cd3|icd_dgns_cd4|icd_dgns_cd5|icd_dgns_cd6|icd_dgns_cd7|icd_dgns_cd8|icd_dgns_cd9|icd_dgns_cd10|icd_dgns_cd11|icd_dgns_cd12|icd_dgns_cd13|icd_dgns_cd14|icd_dgns_cd15|icd_dgns_cd16|icd_dgns_cd17|icd_dgns_cd18|icd_dgns_cd19|icd_dgns_cd20|icd_dgns_cd21|icd_dgns_cd22|icd_dgns_cd23|icd_dgns_cd24|icd_dgns_cd25|rsn_visit_cd1|rsn_visit_cd2|rsn_visit_cd3|clm_admsn_dt|nch_bene_dschrg_dt|  svc_type|\n+------------+---------+--------+----------+-------+------------+------------+-------------+---------------+---------------+------------------------+-------------------+----------------+-----------+---------------+------------+------------+------------+------------+------------+------------+------------+------------+------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+------------+------------------+----------+\n| 9.8150312E7|484571957|20110809|         1|      2|           1|         630|           45|             40|              1|                       3|                  1|         4471.86|      183.4|          78903|       78903|        5718|        6208|        7099|        null|        null|        null|        null|        null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|            |                  |OUTP      |\n| 3.8970808E7|499329301|20120312|         1|      1|           1|         310|           14|             40|              8|                       5|                  1|           868.5|      -0.71|          71943|       71943|        null|        null|        null|        null|        null|        null|        null|        null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|            |                  |OUTP      |\n|1.15008826E8|169607467|20150928|         6|      1|           1|         910|           34|             40|              1|                       3|                  1|          839.55|     343.07|          29633|       29633|       41401|        2720|       78057|       53081|        4019|       25000|       60090|        2967|         V145|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|        29633|         null|         null|            |                  |OUTP      |\n|   5372248.0|167377162|20120117|         4|      2|           1|         460|           34|             40|              7|                       1|                  1|           128.0|       91.8|            920|         920|        null|        null|        null|        null|        null|        null|        null|        null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|            |                  |OUTP      |\n|   2592883.0|127985547|20120127|         1|      2|           1|         710|           24|             40|              8|                       5|                  1|         2864.64|     682.48|          53550|       53550|        5533|       78702|       78321|       78900|       25000|        null|        null|        null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|            |                  |OUTP      |\n|    364890.0|165400316|20150711|          |      2|           1|         270|           51|             10|              3|                       2|                 30|         2864.01|    2012.65|          25002|       25002|        3004|         496|        4019|        5990|       V1588|        null|        null|        null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|20150113    |              null|HHA       |\n| 6.6884896E7|106411811|20120628|         4|      1|           1|         360|           11|             40|              1|                       3|                  1|          1904.0|     411.15|          71941|       71941|       72887|       71951|        7242|        null|        null|        null|        null|        null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|            |                  |OUTP      |\n| 6.0026107E7|488497680|20110509|         2|      2|           1|         240|           52|             40|              1|                       4|                  1|            27.0|      16.62|           2449|        2449|        null|        null|        null|        null|        null|        null|        null|        null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|            |                  |OUTP      |\n| 3.6297428E7|471006723|20170302|         1|      1|           2|          30|           26|             40|              7|                       1|                  1|           171.0|       24.5|           J111|        J111|         R05|       R0609|       Z8679|        null|        null|        null|        null|        null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|            |                  |OUTP      |\n| 1.8625573E7|199589290|20150205|         4|      2|           1|           0|           30|             40|              1|                       3|                  1|           106.0|      11.11|           7098|        7098|        null|        null|        null|        null|        null|        null|        null|        null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         7098|         null|         null|            |                  |OUTP      |\n+------------+---------+--------+----------+-------+------------+------------+-------------+---------------+---------------+------------------------+-------------------+----------------+-----------+---------------+------------+------------+------------+------------+------------+------------+------------+------------+------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+------------+------------------+----------+\nonly showing top 10 rows\n\ndf: org.apache.spark.sql.DataFrame \u003d [claim_no: double, bene_id: int ... 44 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1556036752813_-529209702",
+      "id": "20190423-162552_999147727",
+      "dateCreated": "2019-04-23 16:25:52.813",
+      "dateStarted": "2019-04-23 16:29:21.469",
+      "dateFinished": "2019-04-23 17:03:37.813",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%spark\n\n//val d \u003d sql(\"SELECT posexplode_outer(array(10,20))\")\n//d.show\nimport org.apache.spark.sql.types.{StructType, StructField, StringType, LongType}\nimport org.apache.spark.sql.{Row, Column }\n\n\nval schema \u003d\n  StructType(\n    Array(\n      StructField(\"id\", LongType, true),\n      StructField(\"name\", StringType, true),\n      StructField(\"col1\", StringType, false),\n      StructField(\"col2\", StringType, false),\n      StructField(\"col3\", StringType, false),\n      StructField(\"col4\", StringType, false)\n    )\n  )\n\nval rowRDD \u003d sc.parallelize(Array(\n  Row(1l, \"Name.1\", \"row1col1\", \"row1col2\", \"\", \"\"),\n  Row(2l, \"Name.2\", \"row2col1\", \"\", \"\", \"\"),\n  Row(3l, \"Name.3\", \"row3col1\", \"row3col2\", \"row3col3\", \"row3col4\"),\n  Row(4l, \"Name.4\", \"row4col1\", \"\", \"\", \"\"),\n  Row(5l, \"Name.5\", \"row5col1\", \"row5col2\", \"row5col3\", \"row5col4\"),\n  Row(6l, \"Name.6\", \"row6col1\", \"\", \"\", \"\"),\n  Row(7l, \"Name.7\", \"\", \"\", \"\", \"\")))\n\nval df \u003d sqlContext.createDataFrame(rowRDD, schema)\n\ndf.show\n\n\ndef takeLastFun(str: String): Option[String] \u003d {\n  val s \u003d Option(str).getOrElse(return None)\n // s.takeRight(2).\n  Some(s.takeRight(1))\n}\n\nval takeLast \u003d udf[Option[String], String](takeLastFun)\n\nval unPivotDF \u003d df.select($\"id\",\nexpr(\"stack(4, \u0027col1\u0027, col1, \u0027col2\u0027, col2, \u0027col3\u0027, col3, \u0027col4\u0027, col4) as (rank,colval)\"))\n.where(\"name is not null\")\n.filter(!(isnull($\"colval\") || (trim($\"colval\") \u003d\u003d\u003d \"\") ))\n.withColumn(  \"rank\",  takeLast(col(\"rank\"))  )\n\nunPivotDF.show()\n\n\n\n",
+      "user": "anonymous",
+      "dateUpdated": "2019-04-24 22:32:17.457",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+---+------+--------+--------+--------+--------+\n| id|  name|    col1|    col2|    col3|    col4|\n+---+------+--------+--------+--------+--------+\n|  1|Name.1|row1col1|row1col2|        |        |\n|  2|Name.2|row2col1|        |        |        |\n|  3|Name.3|row3col1|row3col2|row3col3|row3col4|\n|  4|Name.4|row4col1|        |        |        |\n|  5|Name.5|row5col1|row5col2|row5col3|row5col4|\n|  6|Name.6|row6col1|        |        |        |\n|  7|Name.7|        |        |        |        |\n+---+------+--------+--------+--------+--------+\n\n+---+----+--------+\n| id|rank|  colval|\n+---+----+--------+\n|  1|   1|row1col1|\n|  1|   2|row1col2|\n|  2|   1|row2col1|\n|  3|   1|row3col1|\n|  3|   2|row3col2|\n|  3|   3|row3col3|\n|  3|   4|row3col4|\n|  4|   1|row4col1|\n|  5|   1|row5col1|\n|  5|   2|row5col2|\n|  5|   3|row5col3|\n|  5|   4|row5col4|\n|  6|   1|row6col1|\n+---+----+--------+\n\nimport org.apache.spark.sql.types.{StructType, StructField, StringType, LongType}\nimport org.apache.spark.sql.{Row, Column}\nschema: org.apache.spark.sql.types.StructType \u003d StructType(StructField(id,LongType,true), StructField(name,StringType,true), StructField(col1,StringType,false), StructField(col2,StringType,false), StructField(col3,StringType,false), StructField(col4,StringType,false))\nrowRDD: org.apache.spark.rdd.RDD[org.apache.spark.sql.Row] \u003d ParallelCollectionRDD[226] at parallelize at \u003cconsole\u003e:72\ndf: org.apache.spark.sql.DataFrame \u003d [id: bigint, name: string ... 4 more fields]\ntakeLastFun: (str: String)Option[String]\ntakeLast: org.apache.spark.sql.expressions.UserDefinedFunction \u003d UserDefinedFunction(\u003cfunction1\u003e,StringType,Some(List(StringType)))\nunPivotDF: org.apache.spark.sq..."
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1556136967952_-1072562663",
+      "id": "20190424-201607_963276133",
+      "dateCreated": "2019-04-24 20:16:07.959",
+      "dateStarted": "2019-04-24 22:32:17.496",
+      "dateFinished": "2019-04-24 22:32:18.848",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%spark\n\nval df \u003d spark.read.format(\"csv\")\n  .option(\"sep\", \",\")\n  .option(\"inferSchema\", \"true\")\n  .option(\"header\", \"true\")\n  .load(\"/tmp/diabetes.csv\")\n\ndf.printSchema\ndf.show(10)",
+      "user": "anonymous",
+      "dateUpdated": "2019-04-23 17:29:13.399",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "root\n |-- claim_no: double (nullable \u003d true)\n |-- bene_id: integer (nullable \u003d true)\n |-- clm_date: integer (nullable \u003d true)\n |-- dob_dt: string (nullable \u003d true)\n |-- gndr_cd: integer (nullable \u003d true)\n |-- bene_race_cd: integer (nullable \u003d true)\n |-- bene_cnty_cd: integer (nullable \u003d true)\n |-- bene_state_cd: integer (nullable \u003d true)\n |-- nch_clm_type_cd: integer (nullable \u003d true)\n |-- clm_fac_type_cd: integer (nullable \u003d true)\n |-- clm_srvc_clsfctn_type_cd: integer (nullable \u003d true)\n |-- ptnt_dschrg_stus_cd: integer (nullable \u003d true)\n |-- clm_tot_chrg_amt: double (nullable \u003d true)\n |-- clm_pmt_amt: double (nullable \u003d true)\n |-- prncpal_dgns_cd: string (nullable \u003d true)\n |-- icd_dgns_cd1: string (nullable \u003d true)\n |-- icd_dgns_cd2: string (nullable \u003d true)\n |-- icd_dgns_cd3: string (nullable \u003d true)\n |-- icd_dgns_cd4: string (nullable \u003d true)\n |-- icd_dgns_cd5: string (nullable \u003d true)\n |-- icd_dgns_cd6: string (nullable \u003d true)\n |-- icd_dgns_cd7: string (nullable \u003d true)\n |-- icd_dgns_cd8: string (nullable \u003d true)\n |-- icd_dgns_cd9: string (nullable \u003d true)\n |-- icd_dgns_cd10: string (nullable \u003d true)\n |-- icd_dgns_cd11: string (nullable \u003d true)\n |-- icd_dgns_cd12: string (nullable \u003d true)\n |-- icd_dgns_cd13: string (nullable \u003d true)\n |-- icd_dgns_cd14: string (nullable \u003d true)\n |-- icd_dgns_cd15: string (nullable \u003d true)\n |-- icd_dgns_cd16: string (nullable \u003d true)\n |-- icd_dgns_cd17: string (nullable \u003d true)\n |-- icd_dgns_cd18: string (nullable \u003d true)\n |-- icd_dgns_cd19: string (nullable \u003d true)\n |-- icd_dgns_cd20: string (nullable \u003d true)\n |-- icd_dgns_cd21: string (nullable \u003d true)\n |-- icd_dgns_cd22: string (nullable \u003d true)\n |-- icd_dgns_cd23: string (nullable \u003d true)\n |-- icd_dgns_cd24: string (nullable \u003d true)\n |-- icd_dgns_cd25: string (nullable \u003d true)\n |-- rsn_visit_cd1: string (nullable \u003d true)\n |-- rsn_visit_cd2: string (nullable \u003d true)\n |-- rsn_visit_cd3: string (nullable \u003d true)\n |-- clm_admsn_dt: string (nullable \u003d true)\n |-- nch_bene_dschrg_dt: string (nullable \u003d true)\n |-- svc_type: string (nullable \u003d true)\n\n+------------+---------+--------+----------+-------+------------+------------+-------------+---------------+---------------+------------------------+-------------------+----------------+-----------+---------------+------------+------------+------------+------------+------------+------------+------------+------------+------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+------------+------------------+----------+\n|    claim_no|  bene_id|clm_date|    dob_dt|gndr_cd|bene_race_cd|bene_cnty_cd|bene_state_cd|nch_clm_type_cd|clm_fac_type_cd|clm_srvc_clsfctn_type_cd|ptnt_dschrg_stus_cd|clm_tot_chrg_amt|clm_pmt_amt|prncpal_dgns_cd|icd_dgns_cd1|icd_dgns_cd2|icd_dgns_cd3|icd_dgns_cd4|icd_dgns_cd5|icd_dgns_cd6|icd_dgns_cd7|icd_dgns_cd8|icd_dgns_cd9|icd_dgns_cd10|icd_dgns_cd11|icd_dgns_cd12|icd_dgns_cd13|icd_dgns_cd14|icd_dgns_cd15|icd_dgns_cd16|icd_dgns_cd17|icd_dgns_cd18|icd_dgns_cd19|icd_dgns_cd20|icd_dgns_cd21|icd_dgns_cd22|icd_dgns_cd23|icd_dgns_cd24|icd_dgns_cd25|rsn_visit_cd1|rsn_visit_cd2|rsn_visit_cd3|clm_admsn_dt|nch_bene_dschrg_dt|  svc_type|\n+------------+---------+--------+----------+-------+------------+------------+-------------+---------------+---------------+------------------------+-------------------+----------------+-----------+---------------+------------+------------+------------+------------+------------+------------+------------+------------+------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+------------+------------------+----------+\n| 9.8150312E7|484571957|20110809|         1|      2|           1|         630|           45|             40|              1|                       3|                  1|         4471.86|      183.4|          78903|       78903|        5718|        6208|        7099|        null|        null|        null|        null|        null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|            |                  |OUTP      |\n| 3.8970808E7|499329301|20120312|         1|      1|           1|         310|           14|             40|              8|                       5|                  1|           868.5|      -0.71|          71943|       71943|        null|        null|        null|        null|        null|        null|        null|        null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|            |                  |OUTP      |\n|1.15008826E8|169607467|20150928|         6|      1|           1|         910|           34|             40|              1|                       3|                  1|          839.55|     343.07|          29633|       29633|       41401|        2720|       78057|       53081|        4019|       25000|       60090|        2967|         V145|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|        29633|         null|         null|            |                  |OUTP      |\n|   5372248.0|167377162|20120117|         4|      2|           1|         460|           34|             40|              7|                       1|                  1|           128.0|       91.8|            920|         920|        null|        null|        null|        null|        null|        null|        null|        null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|            |                  |OUTP      |\n|   2592883.0|127985547|20120127|         1|      2|           1|         710|           24|             40|              8|                       5|                  1|         2864.64|     682.48|          53550|       53550|        5533|       78702|       78321|       78900|       25000|        null|        null|        null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|            |                  |OUTP      |\n|    364890.0|165400316|20150711|          |      2|           1|         270|           51|             10|              3|                       2|                 30|         2864.01|    2012.65|          25002|       25002|        3004|         496|        4019|        5990|       V1588|        null|        null|        null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|20150113    |              null|HHA       |\n| 6.6884896E7|106411811|20120628|         4|      1|           1|         360|           11|             40|              1|                       3|                  1|          1904.0|     411.15|          71941|       71941|       72887|       71951|        7242|        null|        null|        null|        null|        null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|            |                  |OUTP      |\n| 6.0026107E7|488497680|20110509|         2|      2|           1|         240|           52|             40|              1|                       4|                  1|            27.0|      16.62|           2449|        2449|        null|        null|        null|        null|        null|        null|        null|        null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|            |                  |OUTP      |\n| 3.6297428E7|471006723|20170302|         1|      1|           2|          30|           26|             40|              7|                       1|                  1|           171.0|       24.5|           J111|        J111|         R05|       R0609|       Z8679|        null|        null|        null|        null|        null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|            |                  |OUTP      |\n| 1.8625573E7|199589290|20150205|         4|      2|           1|           0|           30|             40|              1|                       3|                  1|           106.0|      11.11|           7098|        7098|        null|        null|        null|        null|        null|        null|        null|        null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         null|         7098|         null|         null|            |                  |OUTP      |\n+------------+---------+--------+----------+-------+------------+------------+-------------+---------------+---------------+------------------------+-------------------+----------------+-----------+---------------+------------+------------+------------+------------+------------+------------+------------+------------+------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+------------+------------------+----------+\nonly showing top 10 rows\n\ndf: org.apache.spark.sql.DataFrame \u003d [claim_no: double, bene_id: int ... 44 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1556040367871_-689655052",
+      "id": "20190423-172607_57206946",
+      "dateCreated": "2019-04-23 17:26:07.877",
+      "dateStarted": "2019-04-23 17:29:13.428",
+      "dateFinished": "2019-04-23 17:39:34.001",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%spark\n\n//sql(\"SET spark.sql.orc.enabled\u003dtrue\")\n//spark.time(spark.read.format(\"orc\").load(\"/diabetes\").count)\n\n//sql(\"SET spark.sql.orc.enabled\u003dfalse\")\n//spark.time(spark.read.format(\"orc\").load(\"/diabetes\").count)\n\nspark.read.format(\"orc\").load(\"/cms_bene_stats_diabetes\").count",
+      "user": "anonymous",
+      "dateUpdated": "2019-04-24 22:27:37.755",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "res38: Long \u003d 2080634\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1556036643651_476416373",
+      "id": "20190423-162403_658363880",
+      "dateCreated": "2019-04-23 16:24:03.651",
+      "dateStarted": "2019-04-24 22:27:37.796",
+      "dateFinished": "2019-04-24 22:27:38.549",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%spark\nval dfyo \u003d List((1,\"hi\"),(2,\"there\"),(3,\"yo\")) \n            .toDF() \n            .write \n            .json(\"/user/admin/test/test.json\") ",
+      "user": "anonymous",
+      "dateUpdated": "2019-04-19 17:03:08.764",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 284.028,
+              "optionOpen": false
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala",
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "dfyo: Unit \u003d ()\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1555522379186_557578089",
+      "id": "20190417-173259_140098899",
+      "dateCreated": "2019-04-17 17:32:59.186",
+      "dateStarted": "2019-04-19 17:03:08.841",
+      "dateFinished": "2019-04-19 17:03:15.841",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%spark.pyspark\n\norc_df \u003d spark.read.orc(\u0027hdfs://namenode:8020/cms_bene_stats_diabetes\u0027)\norc_df.printSchema\norc_df.show(10)",
+      "user": "anonymous",
+      "dateUpdated": "2020-06-16 23:22:06.303",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+---------+---------+-------+-------------------+-------------------+--------+------------+-----------+---------------+\n|  bene_id|gender_cd|race_cd|           start_dt|             end_dt|bene_yrs|bene_clm_cnt|tot_pmt_amt|prncpal_disease|\n+---------+---------+-------+-------------------+-------------------+--------+------------+-----------+---------------+\n|117209485|        2|      1|2011-07-19 00:00:00|2017-03-30 00:00:00|     6.0|          92|   13316.25|Unclassified   |\n|483112969|        1|      1|2011-05-02 00:00:00|2017-03-20 00:00:00|     6.0|          43|   21055.71|Unclassified   |\n|108919184|        1|      3|2011-05-12 00:00:00|2017-02-15 00:00:00|     6.0|          65|    7809.54|Unclassified   |\n|499649313|        1|      1|2011-07-21 00:00:00|2017-03-29 00:00:00|     6.0|          58|   54478.24|Unclassified   |\n|121704248|        2|      1|2011-07-06 00:00:00|2017-02-23 00:00:00|     6.0|          21|    4104.41|   Unclassified|\n+---------+---------+-------+-------------------+-------------------+--------+------------+-----------+---------------+\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1555522213529_683173214",
+      "id": "20190417-173013_711172559",
+      "dateCreated": "2019-04-17 17:30:13.530",
+      "dateStarted": "2020-06-16 23:22:06.365",
+      "dateFinished": "2020-06-16 23:22:09.235",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%spark.pyspark\n",
+      "user": "anonymous",
+      "dateUpdated": "2020-06-16 23:22:06.305",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1592349726303_-874880758",
+      "id": "20200616-232206_1684653455",
+      "dateCreated": "2020-06-16 23:22:06.303",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "Mike_BigData_Samples_01",
+  "id": "2E7VM9TR9",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

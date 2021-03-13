@@ -1,0 +1,133 @@
+{
+  "paragraphs": [
+    {
+      "text": "import scala.math.random\n\nimport org.apache.spark.sql.SparkSession\n\nval slices \u003d 2\nval n \u003d math.min(100000L * slices, Int.MaxValue).toInt // avoid overflow\nval count \u003d spark.sparkContext.parallelize(1 until n, slices).map { i \u003d\u003e\n    val x \u003d random * 2 - 1\n    val y \u003d random * 2 - 1\n    if (x*x + y*y \u003c\u003d 1) 1 else 0\n}.reduce(_ + _)\nprintln(\"Pi is roughly \" + 4.0 * count / (n - 1))",
+      "user": "anonymous",
+      "dateUpdated": "2019-04-15 23:22:59.928",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 134.0,
+              "optionOpen": false
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cp\u003eimport scala.math.random\u003c/p\u003e\n\u003cp\u003eimport org.apache.spark.sql.SparkSession\u003c/p\u003e\n\u003cp\u003eval slices \u003d 2\u003cbr/\u003eval n \u003d math.min(100000L * slices, Int.MaxValue).toInt // avoid overflow\u003cbr/\u003eval count \u003d spark.sparkContext.parallelize(1 until n, slices).map { i \u003d\u0026gt;\u003cbr/\u003e val x \u003d random * 2 - 1\u003cbr/\u003e val y \u003d random * 2 - 1\u003cbr/\u003e if (x*x + y*y \u0026lt;\u003d 1) 1 else 0\u003cbr/\u003e}.reduce(_ + _)\u003cbr/\u003eprintln(\u0026ldquo;Pi is roughly \u0026rdquo; + 4.0 * count / (n - 1))\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1551983422636_1093087568",
+      "id": "20190307-183022_180974112",
+      "dateCreated": "2019-03-07 18:30:22.636",
+      "dateStarted": "2019-04-15 23:22:55.913",
+      "dateFinished": "2019-04-15 23:22:55.933",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "import scala.math.random\n\nimport org.apache.spark.sql.SparkSession\n\nval slices \u003d 2\nval n \u003d math.min(100000L * slices, Int.MaxValue).toInt // avoid overflow\nval count \u003d spark.sparkContext.parallelize(1 until n, slices).map { i \u003d\u003e\n    val x \u003d random * 2 - 1\n    val y \u003d random * 2 - 1\n    if (x*x + y*y \u003c\u003d 1) 1 else 0\n}.reduce(_ + _)\nprintln(\"Pi is roughly \" + 4.0 * count / (n - 1))",
+      "user": "anonymous",
+      "dateUpdated": "2019-04-15 23:22:35.202",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "editorMode": "ace/mode/markdown",
+        "tableHide": false,
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cp\u003eimport scala.math.random\u003c/p\u003e\n\u003cp\u003eimport org.apache.spark.sql.SparkSession\u003c/p\u003e\n\u003cp\u003eval slices \u003d 2\u003cbr/\u003eval n \u003d math.min(100000L * slices, Int.MaxValue).toInt // avoid overflow\u003cbr/\u003eval count \u003d spark.sparkContext.parallelize(1 until n, slices).map { i \u003d\u0026gt;\u003cbr/\u003e val x \u003d random * 2 - 1\u003cbr/\u003e val y \u003d random * 2 - 1\u003cbr/\u003e if (x*x + y*y \u0026lt;\u003d 1) 1 else 0\u003cbr/\u003e}.reduce(_ + _)\u003cbr/\u003eprintln(\u0026ldquo;Pi is roughly \u0026rdquo; + 4.0 * count / (n - 1))\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1551983489012_-1769404412",
+      "id": "20190307-183129_475271936",
+      "dateCreated": "2019-03-07 18:31:29.012",
+      "dateStarted": "2019-04-15 22:22:26.279",
+      "dateFinished": "2019-04-15 22:22:26.289",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "user": "anonymous",
+      "dateUpdated": "2019-04-15 23:22:19.107",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionSupport": false
+        },
+        "editorMode": "ace/mode/markdown",
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1551984096428_925214047",
+      "id": "20190307-184136_1331899454",
+      "dateCreated": "2019-03-07 18:41:36.428",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "SparkTesting",
+  "id": "2E5PTNW4G",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "md:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

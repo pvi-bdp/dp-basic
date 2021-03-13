@@ -1,0 +1,85 @@
+{
+  "paragraphs": [
+    {
+      "text": "import scala.math.random\n\nimport org.apache.spark.sql.SparkSession\n\nval slices \u003d 2\nval n \u003d math.min(100000L * slices, Int.MaxValue).toInt // avoid overflow\nval count \u003d spark.sparkContext.parallelize(1 until n, slices).map { i \u003d\u003e\n    val x \u003d random * 2 - 1\n    val y \u003d random * 2 - 1\n    if (x*x + y*y \u003c\u003d 1) 1 else 0\n}.reduce(_ + _)\nprintln(\"Pi is roughly \" + 4.0 * count / (n - 1))",
+      "user": "anonymous",
+      "dateUpdated": "2020-06-16 19:41:40.751",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionSupport": false
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": false,
+        "tableHide": false,
+        "fontSize": 9.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Pi is roughly 3.142875714378572\nimport scala.math.random\nimport org.apache.spark.sql.SparkSession\nslices: Int \u003d 2\nn: Int \u003d 200000\ncount: Int \u003d 157143\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1494446151737_1359394047",
+      "id": "20170510-195551_400594820",
+      "dateCreated": "2017-05-10 19:55:51.000",
+      "dateStarted": "2020-06-16 19:41:00.010",
+      "dateFinished": "2020-06-16 19:41:55.003",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "",
+      "user": "anonymous",
+      "dateUpdated": "2019-04-15 23:24:10.375",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionSupport": false
+        },
+        "editorMode": "ace/mode/markdown",
+        "tableHide": true,
+        "fontSize": 9.0,
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1494446793336_527866307",
+      "id": "20170510-200633_2002902352",
+      "dateCreated": "2017-05-10 20:06:33.000",
+      "status": "FINISHED",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "SparkPi",
+  "id": "2CF34ERK6",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

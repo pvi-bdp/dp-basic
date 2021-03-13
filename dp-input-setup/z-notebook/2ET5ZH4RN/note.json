@@ -1,0 +1,218 @@
+{
+  "paragraphs": [
+    {
+      "text": " %spark.conf",
+      "user": "anonymous",
+      "dateUpdated": "2019-11-26 22:50:15.276",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1572645791447_471231885",
+      "id": "20191101-220311_2080534896",
+      "dateCreated": "2019-11-01 22:03:11.447",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%spark.pyspark\n\n# create DataFrame from python list. It can infer schema for you.\ndf1 \u003d spark.createDataFrame([(1, \"andy\", 20, \"USA\"), (2, \"jeff\", 23, \"China\"), (3, \"james\", 18, \"USA\")]).toDF(\"id\", \"name\", \"age\", \"country\")\ndf1.printSchema\ndf1.show()\n\n# create DataFrame from pandas dataframe\ndf2 \u003d spark.createDataFrame(df1.toPandas())\ndf2.printSchema\ndf2.show()\n",
+      "user": "anonymous",
+      "dateUpdated": "2019-11-03 21:39:45.139",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+---+-----+---+-------+\n| id| name|age|country|\n+---+-----+---+-------+\n|  1| andy| 20|    USA|\n|  2| jeff| 23|  China|\n|  3|james| 18|    USA|\n+---+-----+---+-------+\n\n"
+          },
+          {
+            "type": "TEXT",
+            "data": "Fail to execute line 7: df2 \u003d spark.createDataFrame(df1.toPandas())\nTraceback (most recent call last):\n  File \"/tmp/zeppelin_pyspark-7043935246475851932.py\", line 375, in \u003cmodule\u003e\n    exec(code, _zcUserQueryNameSpace)\n  File \"\u003cstdin\u003e\", line 7, in \u003cmodule\u003e\n  File \"/spark/python/lib/pyspark.zip/pyspark/sql/dataframe.py\", line 2076, in toPandas\n    require_minimum_pandas_version()\n  File \"/spark/python/lib/pyspark.zip/pyspark/sql/utils.py\", line 129, in require_minimum_pandas_version\n    \"it was not found.\" % minimum_pandas_version)\nImportError: Pandas \u003e\u003d 0.19.2 must be installed; however, it was not found.\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1572645817348_-401980474",
+      "id": "20191101-220337_1939039950",
+      "dateCreated": "2019-11-01 22:03:37.349",
+      "dateStarted": "2019-11-03 21:39:45.217",
+      "dateFinished": "2019-11-03 21:40:41.697",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%spark.pyspark\n\ndf1 \u003d spark.createDataFrame([(1, \"andy\", 20, \"USA\"), (2, \"jeff\", 23, \"China\"), (3, \"james\", 18, \"USA\")]).toDF(\"id\", \"name\", \"age\", \"country\")\ndf2 \u003d df1.groupBy(\"country\").count()\nz.show(df2)\n",
+      "user": "anonymous",
+      "dateUpdated": "2019-11-03 21:46:50.631",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "multiBarChart",
+              "height": 300.0,
+              "optionOpen": false,
+              "setting": {
+                "multiBarChart": {
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default"
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "country",
+                  "index": 0.0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "count",
+                  "index": 1.0,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python",
+        "tableHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "country\tcount\nChina\t1\nUSA\t2\n"
+          },
+          {
+            "type": "TEXT",
+            "data": "\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1572645837301_-1594677898",
+      "id": "20191101-220357_402805342",
+      "dateCreated": "2019-11-01 22:03:57.302",
+      "dateStarted": "2019-11-03 21:42:20.043",
+      "dateFinished": "2019-11-03 21:42:27.767",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%spark.pyspark\n\norc_df \u003d spark.read.orc(\u0027hdfs://namenode:8020/da-data/public/cd_icd_cm/orc\u0027)\norc_df.printSchema\norc_df.show(10)\n\n#z.show(orc_df)\n",
+      "user": "anonymous",
+      "dateUpdated": "2020-07-06 20:50:41.150",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+--------+-----------+--------+--------------------+--------------------+-------------+--------------------+--------------------+\n|  codeid|  altcodeid|isheader|           shortname|            longname|      version|        diseaseclass|           ischronic|\n+--------+-----------+--------+--------------------+--------------------+-------------+--------------------+--------------------+\n|\"codeID\"|\"altCodeID\"|    null|         \"shortName\"|          \"longName\"|    \"version\"|      \"diseaseClass\"|         \"isChronic\"|\n|  \"0010\"|    \"001.0\"|       0|\"Cholera d/t vib ...|\"Cholera due to v...|       \"9.32\"|\"Infectious-Paras...|                 \"Y\"|\n|  \"0011\"|    \"001.1\"|       1|\"Cholera d/t vib ...|\"Cholera due to v...|       \"9.32\"|\"Infectious-Paras...|                 \"Y\"|\n|  \"0019\"|    \"001.9\"|       1|       \"Cholera NOS\"|            \"Cholera| unspecified\"|              \"9.32\"|\"Infectious-Paras...|\n|  \"0020\"|    \"002.0\"|       0|     \"Typhoid fever\"|     \"Typhoid fever\"|       \"9.32\"|\"Infectious-Paras...|                 \"Y\"|\n|  \"0021\"|    \"002.1\"|       1|\"Paratyphoid feve...|\"Paratyphoid feve...|       \"9.32\"|\"Infectious-Paras...|                 \"Y\"|\n|  \"0022\"|    \"002.2\"|       1|\"Paratyphoid feve...|\"Paratyphoid feve...|       \"9.32\"|\"Infectious-Paras...|                 \"Y\"|\n|  \"0023\"|    \"002.3\"|       1|\"Paratyphoid feve...|\"Paratyphoid feve...|       \"9.32\"|\"Infectious-Paras...|                 \"Y\"|\n|  \"0029\"|    \"002.9\"|       1|\"Paratyphoid feve...|  \"Paratyphoid fever| unspecified\"|              \"9.32\"|\"Infectious-Paras...|\n|  \"0030\"|    \"003.0\"|       0|\"Salmonella enter...|\"Salmonella gastr...|       \"9.32\"|\"Infectious-Paras...|                 \"Y\"|\n+--------+-----------+--------+--------------------+--------------------+-------------+--------------------+--------------------+\nonly showing top 10 rows\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1572817339957_-781707799",
+      "id": "20191103-214219_374607456",
+      "dateCreated": "2019-11-03 21:42:19.957",
+      "dateStarted": "2020-07-06 20:50:41.198",
+      "dateFinished": "2020-07-06 20:50:50.166",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%spark.pyspark\n",
+      "user": "anonymous",
+      "dateUpdated": "2019-11-03 21:48:36.864",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1572817716863_-362792447",
+      "id": "20191103-214836_1388138283",
+      "dateCreated": "2019-11-03 21:48:36.863",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "PySpark_Samples",
+  "id": "2ET5ZH4RN",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

@@ -1,0 +1,68 @@
+{
+  "paragraphs": [
+    {
+      "text": "%kotlin\n\nprintln(\"were\")",
+      "user": "anonymous",
+      "dateUpdated": "2019-05-19 22:04:49.594",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "kotlin",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/kotlin",
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "org.apache.thrift.transport.TTransportException\n\tat org.apache.thrift.transport.TIOStreamTransport.read(TIOStreamTransport.java:132)\n\tat org.apache.thrift.transport.TTransport.readAll(TTransport.java:86)\n\tat org.apache.thrift.protocol.TBinaryProtocol.readAll(TBinaryProtocol.java:429)\n\tat org.apache.thrift.protocol.TBinaryProtocol.readI32(TBinaryProtocol.java:318)\n\tat org.apache.thrift.protocol.TBinaryProtocol.readMessageBegin(TBinaryProtocol.java:219)\n\tat org.apache.thrift.TServiceClient.receiveBase(TServiceClient.java:69)\n\tat org.apache.zeppelin.interpreter.thrift.RemoteInterpreterService$Client.recv_createInterpreter(RemoteInterpreterService.java:209)\n\tat org.apache.zeppelin.interpreter.thrift.RemoteInterpreterService$Client.createInterpreter(RemoteInterpreterService.java:192)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreter$2.call(RemoteInterpreter.java:169)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreter$2.call(RemoteInterpreter.java:165)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterProcess.callRemoteFunction(RemoteInterpreterProcess.java:135)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreter.internal_create(RemoteInterpreter.java:165)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreter.open(RemoteInterpreter.java:132)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreter.getFormType(RemoteInterpreter.java:299)\n\tat org.apache.zeppelin.notebook.Paragraph.jobRun(Paragraph.java:407)\n\tat org.apache.zeppelin.scheduler.Job.run(Job.java:188)\n\tat org.apache.zeppelin.scheduler.RemoteScheduler$JobRunner.run(RemoteScheduler.java:315)\n\tat java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)\n\tat java.util.concurrent.FutureTask.run(FutureTask.java:266)\n\tat java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)\n\tat java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)\n\tat java.lang.Thread.run(Thread.java:748)\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1558303460773_-730928351",
+      "id": "20190519-220420_669303507",
+      "dateCreated": "2019-05-19 22:04:20.773",
+      "dateStarted": "2019-05-19 22:04:44.190",
+      "dateFinished": "2019-05-19 22:17:16.689",
+      "status": "ABORT",
+      "errorMessage": "org.apache.thrift.transport.TTransportException\n\tat org.apache.thrift.transport.TIOStreamTransport.read(TIOStreamTransport.java:132)\n\tat org.apache.thrift.transport.TTransport.readAll(TTransport.java:86)\n\tat org.apache.thrift.protocol.TBinaryProtocol.readAll(TBinaryProtocol.java:429)\n\tat org.apache.thrift.protocol.TBinaryProtocol.readI32(TBinaryProtocol.java:318)\n\tat org.apache.thrift.protocol.TBinaryProtocol.readMessageBegin(TBinaryProtocol.java:219)\n\tat org.apache.thrift.TServiceClient.receiveBase(TServiceClient.java:69)\n\tat org.apache.zeppelin.interpreter.thrift.RemoteInterpreterService$Client.recv_createInterpreter(RemoteInterpreterService.java:209)\n\tat org.apache.zeppelin.interpreter.thrift.RemoteInterpreterService$Client.createInterpreter(RemoteInterpreterService.java:192)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreter$2.call(RemoteInterpreter.java:169)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreter$2.call(RemoteInterpreter.java:165)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterProcess.callRemoteFunction(RemoteInterpreterProcess.java:135)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreter.internal_create(RemoteInterpreter.java:165)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreter.open(RemoteInterpreter.java:132)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreter.getFormType(RemoteInterpreter.java:299)\n\tat org.apache.zeppelin.notebook.Paragraph.jobRun(Paragraph.java:407)\n\tat org.apache.zeppelin.scheduler.Job.run(Job.java:188)\n\tat org.apache.zeppelin.scheduler.RemoteScheduler$JobRunner.run(RemoteScheduler.java:315)\n\tat java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)\n\tat java.util.concurrent.FutureTask.run(FutureTask.java:266)\n\tat java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)\n\tat java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)\n\tat java.lang.Thread.run(Thread.java:748)\n",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%kotlin\n",
+      "user": "anonymous",
+      "dateUpdated": "2019-05-19 22:04:44.156",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1558303484154_-1342961839",
+      "id": "20190519-220444_693764640",
+      "dateCreated": "2019-05-19 22:04:44.154",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "~Trash/Kotlin",
+  "id": "2EAEATXQ9",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {},
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

@@ -1,0 +1,69 @@
+{
+  "paragraphs": [
+    {
+      "text": "import scala.math.random\n\nimport org.apache.spark.sql.SparkSession\n\nval slices \u003d 2\nval n \u003d math.min(100000L * slices, Int.MaxValue).toInt // avoid overflow\nval count \u003d spark.sparkContext.parallelize(1 until n, slices).map { i \u003d\u003e\nval x \u003d random * 2 - 1\nval y \u003d random * 2 - 1\nif (x*x + y*y \u003c\u003d 1) 1 else 0\n}.reduce(_ + _)\nprintln(“Pi is roughly ” + 4.0 * count / (n - 1))",
+      "user": "anonymous",
+      "dateUpdated": "2019-04-15 23:27:02.684",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u003cconsole\u003e:12: error: illegal character \u0027\\u201c\u0027\nprintln(“Pi is roughly ” + 4.0 * count / (n - 1))\n        ^\n\u003cconsole\u003e:12: error: illegal character \u0027\\u201d\u0027\nprintln(“Pi is roughly ” + 4.0 * count / (n - 1))\n                       ^\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1555370723607_1326933336",
+      "id": "20190415-232523_1113498716",
+      "dateCreated": "2019-04-15 23:25:23.607",
+      "dateStarted": "2019-04-15 23:27:02.722",
+      "dateFinished": "2019-04-15 23:27:25.952",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "user": "anonymous",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1555370822684_1420220377",
+      "id": "20190415-232702_1426511008",
+      "dateCreated": "2019-04-15 23:27:02.684",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "~Trash/Testing",
+  "id": "2E9KSA83C",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "md:shared_process": [],
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}
