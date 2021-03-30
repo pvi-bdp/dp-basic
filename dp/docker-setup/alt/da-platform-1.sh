@@ -54,6 +54,7 @@ function restart_all_clean() {
 function pull_all_images() {
     echo "Performing: pull-all"
 
+    docker pull  megoldsby/da-platform:apache-knox-1.4.0
 	docker pull  megoldsby/da-platform:zeppelin-0.8.1-spark2.4
 	docker pull  megoldsby/da-platform:spark-livy-2.4.3-hadoop2.7
 	docker pull  megoldsby/da-platform:h-base-2.0.0-hadoop2.10.2-java8
