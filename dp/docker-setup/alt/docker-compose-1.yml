@@ -12,8 +12,8 @@ services:
     command: /bin/bash
 
   spark-client:
-#    image: da-platform/spark-client:2.4.3-hadoop2.10.2-java8
-    image: megoldsby/da-platform:spark-client-2.4.3-hadoop2.10.2-java8
+#    image: da-platform/spark-client:2.4.3-hadoop2.10.1-java8
+    image: megoldsby/da-platform:spark-client-2.4.3-hadoop2.10.1-java8
     container_name: spark_client
     environment:
       - SPARK_MASTER=yarn
@@ -52,8 +52,8 @@ services:
       - 5433:5433
 
   spark-proxy:
-#    image: da-platform/spark-proxy:2.4.3-hadoop2.10.2-java8
-    image: megoldsby/da-platform:spark-proxy-2.4.3-hadoop2.10.2-java8
+#    image: da-platform/spark-proxy:2.4.3-hadoop2.10.1-java8
+    image: megoldsby/da-platform:spark-proxy-2.4.3-hadoop2.10.1-java8
     container_name: spark_proxy
     environment:
       - SPARK_MASTER=yarn
@@ -78,8 +78,8 @@ services:
         - ${DP_DATA_DIR}/knox:/opt/knox/logs
 
   namenode:
-#    image: da-platform/h-namenode:2.0.0-hadoop2.10.2-java8
-    image: megoldsby/da-platform:h-namenode-2.0.0-hadoop2.10.2-java8
+#    image: da-platform/h-namenode:2.0.0-hadoop2.10.1-java8
+    image: megoldsby/da-platform:h-namenode-2.0.0-hadoop2.10.1-java8
     container_name: h_namenode
     volumes:
       - ${DP_DATA_DIR}/namenode:/hadoop/dfs/name
@@ -92,8 +92,8 @@ services:
       - 8020:8020
 
   datanode1:
-#    image: da-platform/h-datanode:2.0.0-hadoop2.10.2-java8
-    image: megoldsby/da-platform:h-datanode-2.0.0-hadoop2.10.2-java8
+#    image: da-platform/h-datanode:2.0.0-hadoop2.10.1-java8
+    image: megoldsby/da-platform:h-datanode-2.0.0-hadoop2.10.1-java8
     depends_on: 
       - namenode
     volumes:
@@ -106,8 +106,8 @@ services:
       - 50075:50075
 
 #   datanode2:
-# #    image: da-platform/h-datanode:2.0.0-hadoop2.10.2-java8
-#     image: megoldsby/da-platform:h-datanode-2.0.0-hadoop2.10.2-java8
+# #    image: da-platform/h-datanode:2.0.0-hadoop2.10.1-java8
+#     image: megoldsby/da-platform:h-datanode-2.0.0-hadoop2.10.1-java8
 #     depends_on: 
 #       - namenode
 #     volumes:
@@ -118,8 +118,8 @@ services:
 #       - ${DP_SETUP_DIR}/hadoop.env
 
 #   datanode3:
-# #    image: da-platform/h-datanode:2.0.0-hadoop2.10.2-java8
-#     image: megoldsby/da-platform:h-datanode-2.0.0-hadoop2.10.2-java8
+# #    image: da-platform/h-datanode:2.0.0-hadoop2.10.1-java8
+#     image: megoldsby/da-platform:h-datanode-2.0.0-hadoop2.10.1-java8
 #     depends_on: 
 #       - namenode
 #     volumes:
@@ -130,8 +130,8 @@ services:
 #       - ${DP_SETUP_DIR}/hadoop.env
  
   resourcemanager:
-#    image: da-platform/h-resourcemanager:2.0.0-hadoop2.10.2-java8
-    image: megoldsby/da-platform:h-resourcemanager-2.0.0-hadoop2.10.2-java8
+#    image: da-platform/h-resourcemanager:2.0.0-hadoop2.10.1-java8
+    image: megoldsby/da-platform:h-resourcemanager-2.0.0-hadoop2.10.1-java8
     container_name: h_resourcemanager
     environment:
 #      SERVICE_PRECONDITION: "namenode:50070 datanode1:50075 datanode2:50075 datanode3:50075"
@@ -142,8 +142,8 @@ services:
       - 8088:8088
 
   nodemanager:
-#    image: da-platform/h-nodemanager:2.0.0-hadoop2.10.2-java8
-    image: megoldsby/da-platform:h-nodemanager-2.0.0-hadoop2.10.2-java8
+#    image: da-platform/h-nodemanager:2.0.0-hadoop2.10.1-java8
+    image: megoldsby/da-platform:h-nodemanager-2.0.0-hadoop2.10.1-java8
     environment:
 #      SERVICE_PRECONDITION: "namenode:50070 datanode1:50075 datanode2:50075 datanode3:50075 resourcemanager:8088"
       SERVICE_PRECONDITION: "namenode:50070 datanode1:50075 resourcemanager:8088"
@@ -154,8 +154,8 @@ services:
       - 8042:8042
 
   historyserver:
-#    image: da-platform/h-historyserver:2.0.0-hadoop2.10.2-java8
-    image: megoldsby/da-platform:h-historyserver-2.0.0-hadoop2.10.2-java8
+#    image: da-platform/h-historyserver:2.0.0-hadoop2.10.1-java8
+    image: megoldsby/da-platform:h-historyserver-2.0.0-hadoop2.10.1-java8
     container_name: h_historyserver
     environment:
 #      SERVICE_PRECONDITION: "namenode:50070 datanode1:50075 datanode2:50075 datanode3:50075 resourcemanager:8088"
