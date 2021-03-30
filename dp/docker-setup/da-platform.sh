@@ -55,15 +55,15 @@ function pull_all_images() {
 
 	docker pull  megoldsby/da-platform:zeppelin-0.8.1-spark2.4
 	docker pull  megoldsby/da-platform:spark-livy-2.4.3-hadoop2.7
-	docker pull  megoldsby/da-platform:h-base-2.0.0-hadoop2.9.2-java8
-	docker pull  megoldsby/da-platform:h-namenode-2.0.0-hadoop2.9.2-java8
-	docker pull  megoldsby/da-platform:h-datanode-2.0.0-hadoop2.9.2-java8
-	docker pull  megoldsby/da-platform:h-nodemanager-2.0.0-hadoop2.9.2-java8
-	docker pull  megoldsby/da-platform:h-historyserver-2.0.0-hadoop2.9.2-java8
-	docker pull  megoldsby/da-platform:h-resourcemanager-2.0.0-hadoop2.9.2-java8
+	docker pull  megoldsby/da-platform:h-base-2.0.0-hadoop2.10.2-java8
+	docker pull  megoldsby/da-platform:h-namenode-2.0.0-hadoop2.10.2-java8
+	docker pull  megoldsby/da-platform:h-datanode-2.0.0-hadoop2.10.2-java8
+	docker pull  megoldsby/da-platform:h-nodemanager-2.0.0-hadoop2.10.2-java8
+	docker pull  megoldsby/da-platform:h-historyserver-2.0.0-hadoop2.10.2-java8
+	docker pull  megoldsby/da-platform:h-resourcemanager-2.0.0-hadoop2.10.2-java8
 	docker pull  megoldsby/da-platform:hive-metastore-postgresql-2.3.0
-	docker pull  megoldsby/da-platform:h-hive-base-2.3.5
-	docker pull  megoldsby/da-platform:h-hive-server-2.3.5
+	docker pull  megoldsby/da-platform:h-hive-base-2.3.8
+	docker pull  megoldsby/da-platform:h-hive-server-2.3.8
 	docker pull  megoldsby/da-platform:spark-client-2.4.3-hadoop2.10.2-java8
 	docker pull  megoldsby/da-platform:spark-proxy-2.4.3-hadoop2.10.2-java8
 	docker pull  gethue/hue:latest
