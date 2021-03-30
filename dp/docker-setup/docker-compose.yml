@@ -251,8 +251,8 @@ services:
           - ${DP_DATA_DIR}/mysql:/var/lib/mysql
           - ${DP_SETUP_DIR}/init-hue.sql:/data/application/init.sql
       environment:
-#          MYSQL_ROOT_USER: root
+          MYSQL_ROOT_USER: root
           MYSQL_ROOT_PASSWORD: secret
           MYSQL_DATABASE: hue
-          MYSQL_USER: root
+#          MYSQL_USER: root
 #          MYSQL_PASSWORD: secret
