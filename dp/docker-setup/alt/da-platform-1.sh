@@ -509,7 +509,7 @@ function container_operations() {
 	elif [ "$containergroup" = "spark-proxy" ]; then
 		spark_proxy_ops $operation
 	elif [ "$containergroup" = "python-proxy" ]; then
-		spark_proxy_ops $operation
+		python_proxy_ops $operation
 	elif [ "$containergroup" = "apache-knox" ]; then
 		apache_knox_ops $operation
 	elif [ "$containergroup" = "yarn" ]; then
