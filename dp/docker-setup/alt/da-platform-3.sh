@@ -16,14 +16,11 @@ function stop_all_clean_containers() {
 	rm -rf $DP_DATA_DIR/post*
 	rm -rf $DP_DATA_DIR/mysql
 	rm -rf $DP_DATA_DIR/knox
+	rm -rf $DP_DATA_DIR/python*
 
+ 	mkdir $DP_DATA_DIR/python-proxy
  	mkdir $DP_DATA_DIR/spark-proxy
- 	mkdir $DP_DATA_DIR/spark-proxy/logs
- 	mkdir $DP_DATA_DIR/spark-proxy/jars
-
  	mkdir $DP_DATA_DIR/spark-client
- 	mkdir $DP_DATA_DIR/spark-client/logs
- 	mkdir $DP_DATA_DIR/spark-client/jars
 
 	# not currently removing vertica or knime
 }
@@ -68,6 +65,7 @@ function pull_all_images() {
 	docker pull  megoldsby/da-platform:h-hive-server-2.3.8
 	docker pull  megoldsby/da-platform:spark-client-2.4.3-hadoop2.10.1-java8
 	docker pull  megoldsby/da-platform:spark-proxy-2.4.3-hadoop2.10.1-java8
+	docker pull  megoldsby/da-platform:python-proxy-3.9-slim-buster
 	docker pull  gethue/hue:latest
 	docker pull  mysql:5.7
 
@@ -155,8 +153,6 @@ function spark_proxy_ops() {
 	elif [ "$operation" = "start" ]; then
 		echo "Performing: start"
 		mkdir $DP_DATA_DIR/spark-proxy
- 		mkdir $DP_DATA_DIR/spark-proxy/logs
- 		mkdir $DP_DATA_DIR/spark-proxy/jars
 
 		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml up --no-start spark-proxy
 		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml start spark-proxy
@@ -173,12 +169,43 @@ function spark_proxy_ops() {
 		echo "Performing: restart"		
 		rm -rf $DP_DATA_DIR/spark-proxy
 		mkdir $DP_DATA_DIR/spark-proxy
- 		mkdir $DP_DATA_DIR/spark-proxy/logs
- 		mkdir $DP_DATA_DIR/spark-proxy/jars
-		
+
 		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml rm -fs spark-proxy 
 		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml up --no-start spark-proxy
 		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml start spark-proxy
+	fi
+}
+
+function python_proxy_ops() {
+	local operation=$1
+	local containergroup=python-proxy
+	
+	echo "In containergroup $containergroup: $operation"
+	if [ "$operation" = "stop" ]; then
+		echo "Performing stop"
+		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml stop python-proxy
+	elif [ "$operation" = "start" ]; then
+		echo "Performing: start"
+		mkdir $DP_DATA_DIR/python-proxy
+
+		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml up --no-start python-proxy
+		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml start python-proxy
+	elif [ "$operation" = "clean" ]; then
+		echo "Performing: clean"		
+		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml rm -fs python-proxy
+		rm -rf $DP_DATA_DIR/python-proxy
+		docker rmi -f $(docker images --filter=reference="megoldsby/da-platform:python-p*" -q)
+	elif [ "$operation" = "build" ]; then
+		echo "Not avilable"	
+	elif [ "$operation" = "pull" ]; then
+		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml pull python-proxy 			
+	elif [ "$operation" = "restart" ]; then
+		echo "Performing: restart"		
+		rm -rf $DP_DATA_DIR/python-proxy
+
+		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml rm -fs python-proxy 
+		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml up --no-start python-proxy
+		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml start python-proxy
 	fi
 }
 
