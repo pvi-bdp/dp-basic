@@ -36,7 +36,7 @@ alias dp-compose='docker-compose -f $DP_SETUP_DIR/docker-compose.yml'
 
 ### \# da-platform ansible-playbook function
 function  dp-ansible-playbook() {
-   docker-compose -f $DP_SETUP_DIR/docker-compose.yml  --verbose run --rm ansible $1 $2 $3
+   docker-compose -f $DP_SETUP_DIR/docker-compose.yml run --rm ansible $1 $2 $3
 }
 
 ### \# da-platform hive related data functions
