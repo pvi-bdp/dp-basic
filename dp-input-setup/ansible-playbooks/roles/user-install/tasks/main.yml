@@ -1,0 +1,15 @@
+---
+# User Install tasks
+
+- name: install DEV user
+  tags: misc
+  user:
+    name={{dev_user}}
+    password={{dev_pass}}
+    groups=pivotal
+
+- name: Set password to user
+  tags: misc
+  shell: echo {{dev_user}}:{{dev_pass}} | sudo chpasswd
+  become: yes
+

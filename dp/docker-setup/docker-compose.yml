@@ -7,7 +7,7 @@ services:
     image: megoldsby/da-platform:ansible-2.9.3-alpine-latest
     container_name: ansible
     volumes:
-     - ./data-setup/playbooks:/ansible/playbooks
+     - ${DP_INPUT_SETUP_DIR}/ansible-playbooks:/ansible/playbooks
 #    entrypoint: /bin/bash
 
   hdfs-client:
