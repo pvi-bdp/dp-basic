@@ -2,8 +2,14 @@ version: "3.8"
 
 services:
 
+  ansible:
+#    image: da-platform/ansible:2.9.3-alpine-latest
+    image: megoldsby/da-platform:ansible-2.9.3-alpine-latest
+    container_name: ansible
+    volumes:
+     - ./data-setup/playbooks:/ansible/playbooks
+#    entrypoint: /bin/bash
 
-# Updated the volumns location
   hdfs-client:
 #    image: da-platform/h-hive-server:2.3.8
     image: megoldsby/da-platform:h-hive-server-2.3.8
@@ -72,6 +78,7 @@ services:
 #    image: da-platform/python-proxy:3.9-slim-buster
     image: megoldsby/da-platform:python-proxy-3.9-slim-buster
     container_name: python_proxy
+    hostname: python_proxy
     volumes:
       - ${DP_DATA_DIR}/python-proxy:/opt/data/output
       - ${DP_INPUT_DIR}/python-proxy/output:/opt/data/input

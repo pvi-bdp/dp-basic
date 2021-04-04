@@ -66,6 +66,7 @@ function pull_all_images() {
 	docker pull  megoldsby/da-platform:spark-client-2.4.3-hadoop2.10.1-java8
 	docker pull  megoldsby/da-platform:spark-proxy-2.4.3-hadoop2.10.1-java8
 	docker pull  megoldsby/da-platform:python-proxy-3.9-slim-buster
+	docker pull  megoldsby/da-platform:ansible-2.9.3-alpine-latest
 	docker pull  gethue/hue:latest
 	docker pull  mysql:5.7
 
