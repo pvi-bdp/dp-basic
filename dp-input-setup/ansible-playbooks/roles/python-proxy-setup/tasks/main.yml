@@ -1,0 +1,31 @@
+---
+# python proxy setup 
+
+- name: create output directory
+  tags: python-proxy-setup
+  file: 
+    path: "/opt/data/output/{{ item }}"
+    state: directory
+    owner: "{{ item }}"
+    group: root
+    mode: 0775
+    recurse: yes
+  with_items: "{{ users }}"
+
+- name: Create output symbolic link 
+  file:
+    src: "/opt/data/output/{{ item }}"
+    dest: "/home/{{ item }}/output"
+    owner: "{{ item }}"
+    group: root
+    state: link
+  with_items: "{{ users }}"
+
+- name: Create input symbolic link 
+  file:
+    src: "/opt/data/input/"
+    dest: "/home/{{ item }}/input"
+    owner: "{{ item }}"
+    group: root
+    state: link
+  with_items: "{{ users }}"

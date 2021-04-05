@@ -1,0 +1,9 @@
+# create-python-user.yml
+---
+
+# create new user on host
+- hosts: python_proxy
+
+  roles:
+    - create-users
+    - python-proxy-setup
