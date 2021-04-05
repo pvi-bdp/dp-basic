@@ -78,6 +78,10 @@ end ------------------------------------------- end
    - dp-hive-command public 'select * from cd_icd_cm  Limit 5;'
    - dp-vertica-file load-ref-data.sql
 
+### Available ansible example commands (requires python_proxy container)
+   - dp-ansible-playbook create-python-users.yml  --extra-vars '{"users":["mike","mark"]}'
+   - ssh -p 2221 mike@localhost
+
 ## 2 - Runing the platform:
    - dp-start
    or
