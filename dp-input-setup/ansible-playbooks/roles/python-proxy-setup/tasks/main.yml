@@ -1,6 +1,16 @@
 ---
 # python proxy setup 
 
+- name: copy personalized README.md (show casing template/jinja j2)
+  tags: python-proxy-setup
+  template: 
+    src: README.md.j2 
+    dest: "/home/{{ item }}/README.md" 
+    owner: "{{ item }}"
+    group: "{{ item }}" 
+    mode: 0755
+  with_items: "{{ users }}"
+
 - name: create output directory
   tags: python-proxy-setup
   file: 
