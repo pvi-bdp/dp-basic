@@ -274,3 +274,68 @@ services:
           MYSQL_DATABASE: hue
 #          MYSQL_USER: root
 #          MYSQL_PASSWORD: secret
+
+## Concourse related images
+
+  cc-fly:
+    image: megoldsby/da-platform:fly-7.1.0-alpine
+    container_name: cc-fly    
+    volumes:
+        - ${DP_INPUT_SETUP_DIR}/concourse:/concourse
+
+  cc-db:
+    image: postgres
+    container_name: cc-db
+    hostname: cc-db
+    environment:
+      POSTGRES_DB: concourse
+      POSTGRES_USER: concourse_user
+      POSTGRES_PASSWORD: concourse_pass
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"
+        max-size: "10m"
+
+  cc-web:
+    image: concourse/concourse:7.1.0-ubuntu
+    container_name: cc-web
+    hostname: cc-web
+    command: web
+    links: [cc-db]
+    depends_on: [cc-db]
+    ports: ["8181:8080"]
+    volumes: ["./cc-keys/web:/concourse-keys"]
+    environment:
+      CONCOURSE_EXTERNAL_URL: http://localhost:8181
+      CONCOURSE_POSTGRES_HOST: cc-db
+      CONCOURSE_POSTGRES_USER: concourse_user
+      CONCOURSE_POSTGRES_PASSWORD: concourse_pass
+      CONCOURSE_POSTGRES_DATABASE: concourse
+      CONCOURSE_ADD_LOCAL_USER: test:test
+      CONCOURSE_MAIN_TEAM_LOCAL_USER: test
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"
+        max-size: "10m"
+
+  cc-worker:
+    image: concourse/concourse:7.1.0-ubuntu
+    container_name: cc-worker
+    hostname: cc-worker
+    command: worker
+    privileged: true
+    depends_on: [cc-web]
+    volumes: ["./cc-keys/worker:/concourse-keys"]
+    links: [cc-web]
+    stop_signal: SIGUSR2
+    environment:
+      CONCOURSE_TSA_HOST: cc-web:2222
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"
+        max-size: "10m"
+
+

@@ -34,6 +34,8 @@ alias dp='sh $DP_SETUP_DIR/da-platform.sh'
 
 alias dp-compose='docker-compose -f $DP_SETUP_DIR/docker-compose.yml'
 
+alias dp-fly='docker-compose -f $DP_SETUP_DIR/docker-compose.yml run -rm cc-fly'
+
 ### \# da-platform ansible-playbook function
 function  dp-ansible-playbook() {
    docker-compose -f $DP_SETUP_DIR/docker-compose.yml run --rm ansible -i inventory.ini  $1 $2 $3 $4

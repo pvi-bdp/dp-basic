@@ -67,8 +67,10 @@ function pull_all_images() {
 	docker pull  megoldsby/da-platform:spark-proxy-2.4.3-hadoop2.10.1-java8
 	docker pull  megoldsby/da-platform:python-proxy-3.9-slim-buster
 	docker pull  megoldsby/da-platform:ansible-2.9.3-alpine-latest
+	docker pull  megoldsby/da-platform:fly-7.1.0-alpine
 	docker pull  gethue/hue:latest
 	docker pull  mysql:5.7
+	docker pull  concourse/concourse:7.1.0-ubuntu
 
 # I think we still need the vertica DB until we find a replacement
 	docker pull  megoldsby/da-platform:vertica-9.2.1-centos7
@@ -453,6 +455,37 @@ function vertica_ops() {
 	fi
 }
 
+function concourse_ops() {
+	local operation=$1
+	local containergroup=concourse
+	
+	echo "In containergroup $containergroup: $operation"
+	if [ "$operation" = "stop" ]; then
+		echo "Performing stop"
+		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml stop cc-db cc-web cc-worker
+	elif [ "$operation" = "start" ]; then
+		echo "Performing: start"
+		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml up --no-start cc-db cc-web cc-worker
+		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml start cc-db
+		echo "pausing 15 secs..."
+		sleep 15
+		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml start cc-web cc-worker
+	elif [ "$operation" = "clean" ]; then
+		echo "Performing: clean"		
+		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml rm -fs cc-db cc-web cc-worker
+		docker rmi -f $(docker images --filter=reference="concourse/concourse" -q)		
+	elif [ "$operation" = "build" ]; then
+		echo "Performing: build **** currently not implemented"				
+	elif [ "$operation" = "pull" ]; then
+		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml pull cc-db cc-web cc-worker			
+	elif [ "$operation" = "restart" ]; then
+		echo "Performing: restart"		
+		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml rm -fs cc-db cc-web cc-worker 
+		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml up --no-start cc-db cc-web cc-worker
+		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml start cc-db cc-web cc-worker
+	fi
+}
+
 function all_ops() {
 	local operation=$1
 	local containergroup=all
@@ -525,6 +558,8 @@ function container_operations() {
 		vertica_ops $operation																											
 	elif [ "$containergroup" = "mysql-db" ]; then
 		mysql_db_ops $operation		
+	elif [ "$containergroup" = "concourse" ]; then
+		concourse_ops $operation											
 	else
 	    echo "Unknown container group must be one of: [platform, hue, zeppelin, vertica]"
 	fi
