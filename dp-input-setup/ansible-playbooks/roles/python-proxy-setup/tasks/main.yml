@@ -1,7 +1,7 @@
 ---
 # python proxy setup 
 
-- name: copy personalized README.md (show casing template/jinja j2)
+- name: copy personalized README.md (template/jinja j2)
   tags: python-proxy-setup
   template: 
     src: README.md.j2 
