@@ -124,3 +124,15 @@ This will take some time - the first time to download all of the technology comp
 
 ## 6 - proper shutdown protocol to avoid data loss (from ssh terminal):
    - dp-stop
+
+# Working with Docker on Windows 10
+
+## Complete Series
+https://www.youtube.com/watch?v=_fntjriRe48&list=PLhfrWIlLOoKNMHhB39bh3XBpoLxV3f0V9
+
+## Setup WSL
+https://www.youtube.com/watch?v=_fntjriRe48
+
+## Setup Docker using WSL
+https://www.youtube.com/watch?v=5RQbdMn04Oc
+
