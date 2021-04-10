@@ -137,10 +137,12 @@ https://www.youtube.com/watch?v=_fntjriRe48
 to list on linux distros where Ubuntu is the default used by docker on version 2 of wsl
 - cmd: wsl -l -v
 
-  NAME                   STATE           VERSION
-* Ubuntu                 Running         2
-  docker-desktop         Running         2
-  docker-desktop-data    Running         2
+|  NAME                  |     STATE     | VERSION  |
+|------------------------|---------------|----------|
+|* Ubuntu                |    Running    |    2     |
+|  docker-desktop        |    Running    |    2     |
+|  docker-desktop-data   |    Running    |    2     |
+|------------------------|---------------|----------|
 
 set the default linux distribution used to run docker containers
 - cmd: wsl --setdefault Ubuntu
