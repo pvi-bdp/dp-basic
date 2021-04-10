@@ -133,8 +133,22 @@ https://www.youtube.com/watch?v=_fntjriRe48&list=PLhfrWIlLOoKNMHhB39bh3XBpoLxV3f
 ## Setup WSL
 https://www.youtube.com/watch?v=_fntjriRe48
 
+### common wsl commands in powershell
+to list on linux distros where Ubuntu is the default used by docker on version 2 of wsl
+cmd: wsl -l -v
+  NAME                   STATE           VERSION
+* Ubuntu                 Running         2
+  docker-desktop         Running         2
+  docker-desktop-data    Running         2
+
+set the default linux distribution used to run docker containers
+cmd: wsl --setdefault Ubuntu
+
 ## Setup Docker using WSL
 https://www.youtube.com/watch?v=5RQbdMn04Oc
 
 ## WSL Documentation for Docker
 https://docs.docker.com/docker-for-windows/wsl/
+
+## Docker images location using wsl
+https://stackoverflow.com/questions/62441307/how-can-i-change-the-location-of-docker-images-when-using-docker-desktop-on-wsl2
