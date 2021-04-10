@@ -136,3 +136,5 @@ https://www.youtube.com/watch?v=_fntjriRe48
 ## Setup Docker using WSL
 https://www.youtube.com/watch?v=5RQbdMn04Oc
 
+## WSL Documentation for Docker
+https://docs.docker.com/docker-for-windows/wsl/
