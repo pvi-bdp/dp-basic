@@ -136,6 +136,7 @@ https://www.youtube.com/watch?v=_fntjriRe48
 ### common wsl commands in powershell
 to list on linux distros where Ubuntu is the default used by docker on version 2 of wsl
 - cmd: wsl -l -v
+
   NAME                   STATE           VERSION
 * Ubuntu                 Running         2
   docker-desktop         Running         2
