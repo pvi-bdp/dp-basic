@@ -2,18 +2,39 @@ version: "3.8"
 
 services:
 
-# Updated the volumns location
+  ansible:
+#    image: da-platform/ansible:2.9.3-alpine-latest
+    image: megoldsby/da-platform:ansible-2.9.3-alpine-latest
+    container_name: ansible
+    volumes:
+     - ${DP_INPUT_SETUP_DIR}/ansible-playbooks:/ansible/playbooks
+#    entrypoint: /bin/bash
+
   hdfs-client:
-#    image: da-platform/h-hive-server:2.3.5
-    image: megoldsby/da-platform:h-hive-server-2.3.5
+#    image: da-platform/h-hive-server:2.3.8
+    image: megoldsby/da-platform:h-hive-server-2.3.8
     container_name: hdfs-client
     volumes:
      - ${DP_INPUT_SETUP_DIR}:/opt/data/data-setup
     command: /bin/bash
-    
+
+  spark-client:
+#    image: da-platform/spark-client:2.4.3-hadoop2.10.1-java8
+    image: megoldsby/da-platform:spark-client-2.4.3-hadoop2.10.1-java8
+    container_name: spark_client
+    environment:
+      - SPARK_MASTER=yarn
+      - CORE_CONF_fs_defaultFS=hdfs://namenode:8020
+    env_file:
+      - ./hadoop.env
+    volumes:
+      - ${DP_INPUT_SETUP_DIR}/spark:/opt/data-setup/spark
+      - ${DP_DATA_DIR}/spark-client:/opt/data/spark/logs
+      - ${DP_INPUT_DIR}/spark-client:/opt/data/spark/jars
+
   b-loader:
-#    image: da-platform/h-hive-base:2.3.5
-    image: megoldsby/da-platform:h-hive-base-2.3.5
+#    image: da-platform/h-hive-base:2.3.8
+    image: megoldsby/da-platform:h-hive-base-2.3.8
     container_name: b-loader
     volumes:
       - ${DP_INPUT_SETUP_DIR}/hive:/opt/data/data-setup
@@ -37,6 +58,33 @@ services:
     ports:
       - 5433:5433
 
+  spark-proxy:
+#    image: da-platform/spark-proxy:2.4.3-hadoop2.10.1-java8
+    image: megoldsby/da-platform:spark-proxy-2.4.3-hadoop2.10.1-java8
+    container_name: spark_proxy
+    environment:
+      - SPARK_MASTER=yarn
+      - CORE_CONF_fs_defaultFS=hdfs://namenode:8020
+    env_file:
+      - ./hadoop.env
+    volumes:
+      - ${DP_INPUT_SETUP_DIR}/spark:/opt/data-setup/spark
+      - ${DP_DATA_DIR}/spark-proxy:/opt/data/spark/logs
+      - ${DP_INPUT_DIR}/spark-proxy:/opt/data/spark/jars
+    ports:
+      - "2222:22"
+
+  python-proxy:
+#    image: da-platform/python-proxy:3.9-slim-buster
+    image: megoldsby/da-platform:python-proxy-3.9-slim-buster
+    container_name: python_proxy
+    hostname: python_proxy
+    volumes:
+      - ${DP_DATA_DIR}/python-proxy:/opt/data/output
+      - ${DP_INPUT_DIR}/python-proxy/output:/opt/data/input
+    ports:
+      - "2221:22"
+
   apache-knox:
 #    image: da-platform/apache-knox:1.4.0
       image: megoldsby/da-platform:apache-knox-1.4.0
@@ -48,8 +96,8 @@ services:
         - ${DP_DATA_DIR}/knox:/opt/knox/logs
 
   namenode:
-#    image: da-platform/h-namenode:2.0.0-hadoop2.9.2-java8
-    image: megoldsby/da-platform:h-namenode-2.0.0-hadoop2.9.2-java8
+#    image: da-platform/h-namenode:2.0.0-hadoop2.10.1-java8
+    image: megoldsby/da-platform:h-namenode-2.0.0-hadoop2.10.1-java8
     container_name: h_namenode
     volumes:
       - ${DP_DATA_DIR}/namenode:/hadoop/dfs/name
@@ -62,8 +110,8 @@ services:
       - 8020:8020
 
   datanode1:
-#    image: da-platform/h-datanode:2.0.0-hadoop2.9.2-java8
-    image: megoldsby/da-platform:h-datanode-2.0.0-hadoop2.9.2-java8
+#    image: da-platform/h-datanode:2.0.0-hadoop2.10.1-java8
+    image: megoldsby/da-platform:h-datanode-2.0.0-hadoop2.10.1-java8
     depends_on: 
       - namenode
     volumes:
@@ -76,8 +124,8 @@ services:
       - 50075:50075
 
   datanode2:
-#    image: da-platform/h-datanode:2.0.0-hadoop2.9.2-java8
-    image: megoldsby/da-platform:h-datanode-2.0.0-hadoop2.9.2-java8
+#    image: da-platform/h-datanode:2.0.0-hadoop2.10.1-java8
+    image: megoldsby/da-platform:h-datanode-2.0.0-hadoop2.10.1-java8
     depends_on: 
       - namenode
     volumes:
@@ -88,8 +136,8 @@ services:
       - ${DP_SETUP_DIR}/hadoop.env
 
   datanode3:
-#    image: da-platform/h-datanode:2.0.0-hadoop2.9.2-java8
-    image: megoldsby/da-platform:h-datanode-2.0.0-hadoop2.9.2-java8
+#    image: da-platform/h-datanode:2.0.0-hadoop2.10.1-java8
+    image: megoldsby/da-platform:h-datanode-2.0.0-hadoop2.10.1-java8
     depends_on: 
       - namenode
     volumes:
@@ -100,8 +148,8 @@ services:
       - ${DP_SETUP_DIR}/hadoop.env
  
   resourcemanager:
-#    image: da-platform/h-resourcemanager:2.0.0-hadoop2.9.2-java8
-    image: megoldsby/da-platform:h-resourcemanager-2.0.0-hadoop2.9.2-java8
+#    image: da-platform/h-resourcemanager:2.0.0-hadoop2.10.1-java8
+    image: megoldsby/da-platform:h-resourcemanager-2.0.0-hadoop2.10.1-java8
     container_name: h_resourcemanager
     environment:
       SERVICE_PRECONDITION: "namenode:50070 datanode1:50075 datanode2:50075 datanode3:50075"
@@ -111,8 +159,8 @@ services:
       - 8088:8088
 
   nodemanager:
-#    image: da-platform/h-nodemanager:2.0.0-hadoop2.9.2-java8
-    image: megoldsby/da-platform:h-nodemanager-2.0.0-hadoop2.9.2-java8
+#    image: da-platform/h-nodemanager:2.0.0-hadoop2.10.1-java8
+    image: megoldsby/da-platform:h-nodemanager-2.0.0-hadoop2.10.1-java8
     environment:
       SERVICE_PRECONDITION: "namenode:50070 datanode1:50075 datanode2:50075 datanode3:50075 resourcemanager:8088"
     env_file:
@@ -122,8 +170,8 @@ services:
 #      - 8042:8042
 
   historyserver:
-#    image: da-platform/h-historyserver:2.0.0-hadoop2.9.2-java8
-    image: megoldsby/da-platform:h-historyserver-2.0.0-hadoop2.9.2-java8
+#    image: da-platform/h-historyserver:2.0.0-hadoop2.10.1-java8
+    image: megoldsby/da-platform:h-historyserver-2.0.0-hadoop2.10.1-java8
     container_name: h_historyserver
     environment:
       SERVICE_PRECONDITION: "namenode:50070 datanode1:50075 datanode2:50075 datanode3:50075 resourcemanager:8088"
@@ -135,8 +183,8 @@ services:
       - "8188:8188"
 
   hive-server:
-#    image: da-platform/h-hive-server:2.3.5
-    image: megoldsby/da-platform:h-hive-server-2.3.5
+#    image: da-platform/h-hive-server:2.3.8
+    image: megoldsby/da-platform:h-hive-server-2.3.8
     container_name: h_hiveserver
     env_file:
       - ${DP_SETUP_DIR}/hadoop.env
@@ -150,8 +198,8 @@ services:
       - "10002:10002"
 
   hive-metastore:
-#    image: da-platform/h-hive-server:2.3.5
-    image: megoldsby/da-platform:h-hive-server-2.3.5
+#    image: da-platform/h-hive-server:2.3.8
+    image: megoldsby/da-platform:h-hive-server-2.3.8
     container_name: h_hivemetastore
     env_file:
       - ${DP_SETUP_DIR}/hadoop.env
@@ -221,8 +269,73 @@ services:
           - ${DP_DATA_DIR}/mysql:/var/lib/mysql
           - ${DP_SETUP_DIR}/init-hue.sql:/data/application/init.sql
       environment:
-#          MYSQL_ROOT_USER: root
+          MYSQL_ROOT_USER: root
           MYSQL_ROOT_PASSWORD: secret
           MYSQL_DATABASE: hue
-          MYSQL_USER: root
+#          MYSQL_USER: root
 #          MYSQL_PASSWORD: secret
+
+## Concourse related images
+
+  cc-fly:
+    image: megoldsby/da-platform:fly-7.1.0-alpine
+    container_name: cc-fly    
+    volumes:
+        - ${DP_INPUT_SETUP_DIR}/concourse:/concourse
+
+  cc-db:
+    image: postgres
+    container_name: cc-db
+    hostname: cc-db
+    environment:
+      POSTGRES_DB: concourse
+      POSTGRES_USER: concourse_user
+      POSTGRES_PASSWORD: concourse_pass
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"
+        max-size: "10m"
+
+  cc-web:
+    image: concourse/concourse:7.1.0-ubuntu
+    container_name: cc-web
+    hostname: cc-web
+    command: web
+    links: [cc-db]
+    depends_on: [cc-db]
+    ports: ["8181:8080"]
+    volumes: ["./cc-keys/web:/concourse-keys"]
+    environment:
+      CONCOURSE_EXTERNAL_URL: http://localhost:8181
+      CONCOURSE_POSTGRES_HOST: cc-db
+      CONCOURSE_POSTGRES_USER: concourse_user
+      CONCOURSE_POSTGRES_PASSWORD: concourse_pass
+      CONCOURSE_POSTGRES_DATABASE: concourse
+      CONCOURSE_ADD_LOCAL_USER: test:test
+      CONCOURSE_MAIN_TEAM_LOCAL_USER: test
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"
+        max-size: "10m"
+
+  cc-worker:
+    image: concourse/concourse:7.1.0-ubuntu
+    container_name: cc-worker
+    hostname: cc-worker
+    command: worker
+    privileged: true
+    depends_on: [cc-web]
+    volumes: ["./cc-keys/worker:/concourse-keys"]
+    links: [cc-web]
+    stop_signal: SIGUSR2
+    environment:
+      CONCOURSE_TSA_HOST: cc-web:2222
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"
+        max-size: "10m"
+
+

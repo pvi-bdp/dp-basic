@@ -12,9 +12,15 @@ function stop_all_clean_containers() {
 	rm -rf $DP_DATA_DIR/name*
 	rm -rf $DP_DATA_DIR/livy
 	rm -rf $DP_DATA_DIR/yarn
+	rm -rf $DP_DATA_DIR/spark*
 	rm -rf $DP_DATA_DIR/post*
 	rm -rf $DP_DATA_DIR/mysql
 	rm -rf $DP_DATA_DIR/knox
+	rm -rf $DP_DATA_DIR/python*
+
+ 	mkdir $DP_DATA_DIR/python-proxy
+ 	mkdir $DP_DATA_DIR/spark-proxy
+ 	mkdir $DP_DATA_DIR/spark-client
 
 	# not currently removing vertica or knime
 }
@@ -44,20 +50,27 @@ function restart_all_clean() {
 
 function pull_all_images() {
     echo "Performing: pull-all"
-
+    
+    docker pull  megoldsby/da-platform:apache-knox-1.4.0
 	docker pull  megoldsby/da-platform:zeppelin-0.8.1-spark2.4
 	docker pull  megoldsby/da-platform:spark-livy-2.4.3-hadoop2.7
-	docker pull  megoldsby/da-platform:h-base-2.0.0-hadoop2.9.2-java8
-	docker pull  megoldsby/da-platform:h-namenode-2.0.0-hadoop2.9.2-java8
-	docker pull  megoldsby/da-platform:h-datanode-2.0.0-hadoop2.9.2-java8
-	docker pull  megoldsby/da-platform:h-nodemanager-2.0.0-hadoop2.9.2-java8
-	docker pull  megoldsby/da-platform:h-historyserver-2.0.0-hadoop2.9.2-java8
-	docker pull  megoldsby/da-platform:h-resourcemanager-2.0.0-hadoop2.9.2-java8
+	docker pull  megoldsby/da-platform:h-base-2.0.0-hadoop2.10.1-java8
+	docker pull  megoldsby/da-platform:h-namenode-2.0.0-hadoop2.10.1-java8
+	docker pull  megoldsby/da-platform:h-datanode-2.0.0-hadoop2.10.1-java8
+	docker pull  megoldsby/da-platform:h-nodemanager-2.0.0-hadoop2.10.1-java8
+	docker pull  megoldsby/da-platform:h-historyserver-2.0.0-hadoop2.10.1-java8
+	docker pull  megoldsby/da-platform:h-resourcemanager-2.0.0-hadoop2.10.1-java8
 	docker pull  megoldsby/da-platform:hive-metastore-postgresql-2.3.0
-	docker pull  megoldsby/da-platform:h-hive-base-2.3.5
-	docker pull  megoldsby/da-platform:h-hive-server-2.3.5
+	docker pull  megoldsby/da-platform:h-hive-base-2.3.8
+	docker pull  megoldsby/da-platform:h-hive-server-2.3.8
+	docker pull  megoldsby/da-platform:spark-client-2.4.3-hadoop2.10.1-java8
+	docker pull  megoldsby/da-platform:spark-proxy-2.4.3-hadoop2.10.1-java8
+	docker pull  megoldsby/da-platform:python-proxy-3.9-slim-buster
+	docker pull  megoldsby/da-platform:ansible-2.9.3-alpine-latest
+	docker pull  megoldsby/da-platform:fly-7.1.0-alpine
 	docker pull  gethue/hue:latest
 	docker pull  mysql:5.7
+	docker pull  concourse/concourse:7.1.0-ubuntu
 
 # I think we still need the vertica DB until we find a replacement
 	docker pull  megoldsby/da-platform:vertica-9.2.1-centos7
@@ -159,6 +172,73 @@ function spark_livy_ops() {
 		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml rm -fs spark-livy 
 		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml up --no-start spark-livy
 		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml start spark-livy
+	fi
+}
+
+function spark_proxy_ops() {
+	local operation=$1
+	local containergroup=spark-proxy
+	
+	echo "In containergroup $containergroup: $operation"
+	if [ "$operation" = "stop" ]; then
+		echo "Performing stop"
+		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml stop spark-proxy
+	elif [ "$operation" = "start" ]; then
+		echo "Performing: start"
+		mkdir $DP_DATA_DIR/spark-proxy
+
+		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml up --no-start spark-proxy
+		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml start spark-proxy
+	elif [ "$operation" = "clean" ]; then
+		echo "Performing: clean"		
+		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml rm -fs spark-proxy
+		rm -rf $DP_DATA_DIR/spark-proxy
+		docker rmi -f $(docker images --filter=reference="megoldsby/da-platform:spark-p*" -q)
+	elif [ "$operation" = "build" ]; then
+		echo "Not avilable"	
+	elif [ "$operation" = "pull" ]; then
+		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml pull spark-proxy 			
+	elif [ "$operation" = "restart" ]; then
+		echo "Performing: restart"		
+		rm -rf $DP_DATA_DIR/spark-proxy
+		mkdir $DP_DATA_DIR/spark-proxy
+
+		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml rm -fs spark-proxy 
+		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml up --no-start spark-proxy
+		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml start spark-proxy
+	fi
+}
+
+function python_proxy_ops() {
+	local operation=$1
+	local containergroup=python-proxy
+	
+	echo "In containergroup $containergroup: $operation"
+	if [ "$operation" = "stop" ]; then
+		echo "Performing stop"
+		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml stop python-proxy
+	elif [ "$operation" = "start" ]; then
+		echo "Performing: start"
+		mkdir $DP_DATA_DIR/python-proxy
+
+		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml up --no-start python-proxy
+		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml start python-proxy
+	elif [ "$operation" = "clean" ]; then
+		echo "Performing: clean"		
+		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml rm -fs python-proxy
+		rm -rf $DP_DATA_DIR/python-proxy
+		docker rmi -f $(docker images --filter=reference="megoldsby/da-platform:python-p*" -q)
+	elif [ "$operation" = "build" ]; then
+		echo "Not avilable"	
+	elif [ "$operation" = "pull" ]; then
+		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml pull python-proxy 			
+	elif [ "$operation" = "restart" ]; then
+		echo "Performing: restart"		
+		rm -rf $DP_DATA_DIR/python-proxy
+
+		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml rm -fs python-proxy 
+		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml up --no-start python-proxy
+		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml start python-proxy
 	fi
 }
 
@@ -375,6 +455,37 @@ function vertica_ops() {
 	fi
 }
 
+function concourse_ops() {
+	local operation=$1
+	local containergroup=concourse
+	
+	echo "In containergroup $containergroup: $operation"
+	if [ "$operation" = "stop" ]; then
+		echo "Performing stop"
+		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml stop cc-db cc-web cc-worker
+	elif [ "$operation" = "start" ]; then
+		echo "Performing: start"
+		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml up --no-start cc-db cc-web cc-worker
+		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml start cc-db
+		echo "pausing 15 secs..."
+		sleep 15
+		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml start cc-web cc-worker
+	elif [ "$operation" = "clean" ]; then
+		echo "Performing: clean"		
+		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml rm -fs cc-db cc-web cc-worker
+		docker rmi -f $(docker images --filter=reference="concourse/concourse" -q)		
+	elif [ "$operation" = "build" ]; then
+		echo "Performing: build **** currently not implemented"				
+	elif [ "$operation" = "pull" ]; then
+		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml pull cc-db cc-web cc-worker			
+	elif [ "$operation" = "restart" ]; then
+		echo "Performing: restart"		
+		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml rm -fs cc-db cc-web cc-worker 
+		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml up --no-start cc-db cc-web cc-worker
+		docker-compose -f ${DP_SETUP_DIR}/docker-compose.yml start cc-db cc-web cc-worker
+	fi
+}
+
 function all_ops() {
 	local operation=$1
 	local containergroup=all
@@ -403,6 +514,8 @@ function all_ops() {
 	fi
 	
 	spark_livy_ops $operation	
+	
+	spark_proxy_ops $operation	
 
 	mysql_db_ops $operation
 
@@ -427,6 +540,10 @@ function container_operations() {
 		hdfs_ops $operation
 	elif [ "$containergroup" = "spark-livy" ]; then
 		spark_livy_ops $operation
+	elif [ "$containergroup" = "spark-proxy" ]; then
+		spark_proxy_ops $operation
+	elif [ "$containergroup" = "python-proxy" ]; then
+		python_proxy_ops $operation
 	elif [ "$containergroup" = "apache-knox" ]; then
 		apache_knox_ops $operation
 	elif [ "$containergroup" = "yarn" ]; then
@@ -441,6 +558,8 @@ function container_operations() {
 		vertica_ops $operation																											
 	elif [ "$containergroup" = "mysql-db" ]; then
 		mysql_db_ops $operation		
+	elif [ "$containergroup" = "concourse" ]; then
+		concourse_ops $operation											
 	else
 	    echo "Unknown container group must be one of: [platform, hue, zeppelin, vertica]"
 	fi

@@ -34,6 +34,13 @@ alias dp='sh $DP_SETUP_DIR/da-platform.sh'
 
 alias dp-compose='docker-compose -f $DP_SETUP_DIR/docker-compose.yml'
 
+alias dp-fly='docker-compose -f $DP_SETUP_DIR/docker-compose.yml run -rm cc-fly'
+
+### \# da-platform ansible-playbook function
+function  dp-ansible-playbook() {
+   docker-compose -f $DP_SETUP_DIR/docker-compose.yml run --rm ansible -i inventory.ini  $1 $2 $3 $4
+}
+
 ### \# da-platform hive related data functions
 function  dp-hive() {
    docker-compose -f $DP_SETUP_DIR/docker-compose.yml run --rm b-loader -u jdbc:hive2://hive-server:10000/$1
@@ -72,6 +79,10 @@ end ------------------------------------------- end
    - dp-hive-file load-hive-ref-data.sql
    - dp-hive-command public 'select * from cd_icd_cm  Limit 5;'
    - dp-vertica-file load-ref-data.sql
+
+### Available ansible example commands (requires python_proxy container)
+   - dp-ansible-playbook create-python-users.yml  --extra-vars '{"users":["mike","mark"]}'
+   - ssh -p 2221 mike@localhost
 
 ## 2 - Runing the platform:
    - dp-start
@@ -113,3 +124,33 @@ This will take some time - the first time to download all of the technology comp
 
 ## 6 - proper shutdown protocol to avoid data loss (from ssh terminal):
    - dp-stop
+
+# Working with Docker on Windows 10
+
+## Complete Series
+https://www.youtube.com/watch?v=_fntjriRe48&list=PLhfrWIlLOoKNMHhB39bh3XBpoLxV3f0V9
+
+## Setup WSL
+https://www.youtube.com/watch?v=_fntjriRe48
+
+### common wsl commands in powershell
+to list on linux distros where Ubuntu is the default used by docker on version 2 of wsl
+- cmd: wsl -l -v
+
+|  NAME                  |     STATE     | VERSION  |
+|------------------------|---------------|----------|
+|* Ubuntu                |    Running    |    2     |
+|  docker-desktop        |    Running    |    2     |
+|  docker-desktop-data   |    Running    |    2     |
+
+set the default linux distribution used to run docker containers
+- cmd: wsl --setdefault Ubuntu
+
+## Setup Docker using WSL
+https://www.youtube.com/watch?v=5RQbdMn04Oc
+
+## WSL Documentation for Docker
+https://docs.docker.com/docker-for-windows/wsl/
+
+## Docker images location using wsl
+https://stackoverflow.com/questions/62441307/how-can-i-change-the-location-of-docker-images-when-using-docker-desktop-on-wsl2

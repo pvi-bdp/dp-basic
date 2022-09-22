@@ -1,0 +1,4 @@
+- hosts:
+    - python_proxy
+  tasks:
+    - action: ping

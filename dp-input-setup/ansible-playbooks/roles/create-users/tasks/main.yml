@@ -1,0 +1,24 @@
+---
+# User Create tasks
+
+- name: create user
+  tags: create-users
+  user:
+    name: "{{ item }}"
+    password: "{{ item | password_hash('sha512', 'salting123') }}"
+    update_password: on_create
+    groups: "sudo"
+    append: yes
+    state: present
+    shell: /bin/bash
+    createhome: yes
+    home: "/home/{{ item }}"
+  with_items: "{{ users }}"
+
+- name: add to bash profile
+  tags: create-users
+  lineinfile: 
+    dest: "/home/{{ item }}/.bashrc"
+    state: present
+    line: "export TERM=xterm-256color"
+  with_items: "{{ users }}"
